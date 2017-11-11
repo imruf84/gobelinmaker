@@ -9,6 +9,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import gobelinmaker.MyLog;
 import gobelinmaker.console.GobelinConsole;
 import gobelinmaker.devicemanager.Device;
 import gobelinmaker.devicemanager.DeviceManager;
@@ -80,7 +81,7 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
                         return;
                     }
 
-                    //System.out.println("CLIENT:" + request.text);
+                    MyLog.debug("CLIENT:" + request.text);
                     int responseChannel = ResponseManager.add();
 
                     try {
@@ -97,7 +98,7 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
         });
         start();
         bind(GobelinConsole.PORT_TCP, GobelinConsole.PORT_UDP);
-        System.out.println("Server is listening on " + getIP() + ":" + GobelinConsole.PORT_TCP + "...");
+        MyLog.info("Server is listening on " + getIP() + ":" + GobelinConsole.PORT_TCP + "...");
     }
 
     @Override

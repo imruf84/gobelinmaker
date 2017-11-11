@@ -1,6 +1,7 @@
 package gobelinmaker.devicemanager;
 
 import com.fazecast.jSerialComm.SerialPort;
+import gobelinmaker.MyLog;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -8,7 +9,7 @@ public class DeviceManager extends HashMap<String, Device> {
 
     public boolean scan() throws InterruptedException {
 
-        System.out.println("Scanning for devices...");
+        MyLog.info("Scanning for devices...");
 
         boolean devFound = false;
         for (SerialPort sp : SerialPort.getCommPorts()) {
@@ -23,7 +24,7 @@ public class DeviceManager extends HashMap<String, Device> {
             String devID = arduino.serialRead().replace("\n", "").trim();
 
             if (!devID.isEmpty()) {
-                System.out.println("Device found with ID:'" + devID + "' on port " + portName);
+                MyLog.info("Device found with ID:'" + devID + "' on port " + portName);
                 put(devID, new Device(devID, arduino));
                 devFound = true;
                 continue;
@@ -33,7 +34,7 @@ public class DeviceManager extends HashMap<String, Device> {
         }
 
         if (!devFound) {
-            System.out.println("No devices found.");
+            MyLog.warning("No devices found.");
         }
 
         return devFound;

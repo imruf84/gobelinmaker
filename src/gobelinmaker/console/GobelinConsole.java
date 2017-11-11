@@ -11,6 +11,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import gobelinmaker.MyLog;
 import gobelinmaker.server.IServerCommands;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -69,7 +70,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
 
         // Ha nincs kapcsolat szerverrel akkor kilépünk.
         if (!connected()) {
-            System.out.println("You are not connected!");
+            MyLog.warning("You are not connected!");
             return;
         }
 
@@ -93,7 +94,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
     public void print(
             @Param(name = "text", description = "Text to print.") String text
     ) {
-        System.out.println(text);
+        MyLog.println(text);
     }
 
     /**
@@ -101,18 +102,19 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
      */
     @Command(description = "Prints all available servers on network.")
     public void discover() {
+        MyLog.info("Discovering servers...");
         Client c = new Client();
         List<InetAddress> address = c.discoverHosts(PORT_UDP, 5000);
         c.close();
         if (address.isEmpty()) {
-            System.out.println("There are no running servers on the network.");
+            MyLog.info("There are no running servers on the network.");
             return;
         }
 
         address.forEach((addr) -> {
             String ip = addr.toString().replace("/", "");
             if (ip.startsWith("192.")) {
-                System.out.println(ip);
+                MyLog.println(ip);
             }
         });
 
@@ -140,7 +142,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
 
         // Ha már csatlakoztunk akkor kilépünk.
         if (connected()) {
-            System.out.println("You are already connected.");
+            MyLog.warning("You are already connected.");
             return;
         }
 
@@ -165,7 +167,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
             public void received(Connection connection, Object object) {
                 if (object instanceof CommandResponse) {
                     CommandResponse response = (CommandResponse) object;
-                    System.out.println("SERVER:" + response.text);
+                    MyLog.println("SERVER:" + response.text);
                     responseReceived.set(true);
                 }
             }
@@ -176,9 +178,9 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
             while (!connected.get()) {
             }
             sh.setPath(Arrays.asList(ip));
-            System.out.println("Connected to server: " + client.getRemoteAddressTCP().getAddress().toString().replaceAll("/", ""));
+            MyLog.info("Connected to server: " + client.getRemoteAddressTCP().getAddress().toString().replaceAll("/", ""));
         } catch (IOException e) {
-            System.err.println(e.getLocalizedMessage().replaceAll("/", ""));
+            MyLog.error(e.getLocalizedMessage().replaceAll("/", ""), e);
         }
     }
 
@@ -190,7 +192,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
 
         // Ha nem vagyunk csatlakozva akkor kilépünk.
         if (!connected()) {
-            System.out.println("You are already disconnected.");
+            MyLog.warning("You are already disconnected.");
             return;
         }
 
@@ -199,7 +201,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
         while (null != client) {
         }
         sh.setPath(Arrays.asList(""));
-        System.out.println("Disconnected.");
+        MyLog.info("Disconnected.");
     }
 
     @Override

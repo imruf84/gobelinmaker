@@ -7,6 +7,10 @@ import com.martiansoftware.jsap.Switch;
 import java.util.Arrays;
 import gobelinmaker.console.GobelinConsole;
 import gobelinmaker.server.GobelinServer;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 /**
  * GobelinMaker alkalmazás alaposztálya.
@@ -23,12 +27,14 @@ public class GobelinMaker {
      */
     public static void main(String[] args) throws Exception {
 
+        MyLog.showDebugMessages = true;
+        
         SimpleJSAP jsap = new SimpleJSAP(
                 "gm.jar",
                 "Runs Gobelin Maker Command Line Tool",
                 new Parameter[]{
                     new Switch("server").setShortFlag('s').setLongFlag("server").setHelp("Starts a server."),
-                    new Switch("client").setShortFlag('c').setLongFlag("client").setHelp("Starts a client."),
+                    new Switch("console").setShortFlag('c').setLongFlag("console").setHelp("Starts a console."),
                     new Switch("simulator").setShortFlag('S').setLongFlag("simulator").setHelp("Starts a simulator."),}
         );
 
@@ -40,24 +46,27 @@ public class GobelinMaker {
         /*DeviceManager dm = new DeviceManager();
         dm.scan();
         System.out.println(dm.get("gm").sendCommandAndWait(":abc"));*/
-        // Help megjelenítése ha szükséges.
-        if (Arrays.asList(args).contains("-h") || Arrays.asList(args).contains("-help")) {
-            System.out.println("");
-        }
         
-        // Szimulátor futtatása ha szükséges.
-        if (config.getBoolean("simulator")) {
-            System.out.println("simulator");
-        }
-
         // Szerver futtatása ha szükséges.
         if (config.getBoolean("server")) {
             GobelinServer server = new GobelinServer();
             server.startServer();
         }
+        
+        // Szimulátor futtatása ha szükséges.
+        if (config.getBoolean("simulator")) {
+            
+            JFrame f = new JFrame();
+            f.getContentPane().setLayout(new BorderLayout());
+            f.add(new JButton("gomb"));
+            f.pack();
+            f.setLocationRelativeTo(null);
+            f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            f.setVisible(true);
+        }
 
         // Konzol futtatása ha szükséges.
-        if (config.getBoolean("client")) {
+        if (config.getBoolean("console")) {
             GobelinConsole console = new GobelinConsole();
             console.start();
         }
