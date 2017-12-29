@@ -2,9 +2,7 @@ package gobelinmaker.devicemanager;
 
 import arduino.Arduino;
 import com.fazecast.jSerialComm.SerialPort;
-import java.io.PrintWriter;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class MyArduino extends Arduino {
 
