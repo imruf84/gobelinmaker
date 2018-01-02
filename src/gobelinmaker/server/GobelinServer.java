@@ -2,6 +2,7 @@ package gobelinmaker.server;
 
 import asg.cliche.CLIException;
 import asg.cliche.Command;
+import asg.cliche.Param;
 import asg.cliche.Shell;
 import asg.cliche.ShellDependent;
 import asg.cliche.ShellFactory;
@@ -13,10 +14,16 @@ import gobelinmaker.MyLog;
 import gobelinmaker.console.GobelinConsole;
 import gobelinmaker.devicemanager.Device;
 import gobelinmaker.devicemanager.DeviceManager;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collections;
+import javax.imageio.ImageIO;
 
 /**
  * Szerver osztálya.
@@ -26,10 +33,33 @@ import java.util.Collections;
 public class GobelinServer extends Server implements ShellDependent, IServerCommands {
 
     /**
+     * Átviteli buffer mérete.
+     */
+    public static int BUFFER_SIZE = 10 * 1024 * 1024;
+    /**
+     * Kép átvitele esetén használandó előtag.
+     */
+    public static String IMAGE_TAG = "image:";
+
+    /**
      * Parancsértelmező.
      */
     private Shell sh = null;
+    /**
+     * Eszközkezelő.
+     */
     private static final DeviceManager DEVICE_MANAGER = new DeviceManager();
+    /**
+     * Webkamera kezelő.
+     */
+    private static final WebcamManager WEBCAM_MANAGER = new WebcamManager();
+
+    /**
+     * Konstruktor.
+     */
+    public GobelinServer() {
+        super(BUFFER_SIZE, BUFFER_SIZE);
+    }
 
     @Override
     public void cliSetShell(Shell shell) {
@@ -142,6 +172,109 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
 
     @Override
     public void listDevices() {
+    }
+
+    @Override
+    @Command(description = "List connected webcams.")
+    public void listWebcams(int responseChannel) {
+
+        ResponseManager.set(responseChannel, "\n" + WEBCAM_MANAGER.toString());
+    }
+
+    @Override
+    public void listWebcams() {
+    }
+
+    @Override
+    @Command(description = "Opens a webcam specified by index.")
+    public void openWebcam(
+            @Param(name = "index", description = "Index of webcam.") int index,
+            int responseChannel
+    ) {
+
+        ServerCamera sc = WEBCAM_MANAGER.get(index);
+
+        if (null == sc) {
+            ResponseManager.set(responseChannel, "There are no webcams with index:" + index);
+            return;
+        }
+
+        if (sc.isOpened()) {
+            ResponseManager.set(responseChannel, "Webcam is already opened.");
+            return;
+        }
+
+        sc.open();
+        ResponseManager.set(responseChannel, "Webcam is opened.");
+    }
+
+    @Override
+    public void openWebcam(int index) {
+    }
+
+    @Override
+    @Command(description = "Close a webcam specified by index.")
+    public void closeWebcam(
+            @Param(name = "index", description = "Index of webcam.") int index,
+            int responseChannel
+    ) {
+
+        ServerCamera sc = WEBCAM_MANAGER.get(index);
+
+        if (null == sc) {
+            ResponseManager.set(responseChannel, "There are no webcams with index:" + index);
+            return;
+        }
+
+        if (!sc.isOpened()) {
+            ResponseManager.set(responseChannel, "Webcam is already closed.");
+            return;
+        }
+
+        sc.close();
+        ResponseManager.set(responseChannel, "Webcam is closed.");
+    }
+
+    @Override
+    public void closeWebcam(int index) {
+    }
+
+    @Override
+    @Command(description = "Gets a webcam image specified by index.")
+    public void getWebcamImage(
+            @Param(name = "index", description = "Index of webcam.") int index,
+            int responseChannel
+    ) {
+
+        ServerCamera sc = WEBCAM_MANAGER.get(index);
+
+        if (null == sc) {
+            ResponseManager.set(responseChannel, "There are no webcams with index:" + index);
+            return;
+        }
+
+        if (!sc.isOpened()) {
+            ResponseManager.set(responseChannel, "Webcam is closed.");
+            return;
+        }
+
+        BufferedImage image = sc.getImage();
+        String result = "";
+
+        final ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+        try {
+            ImageIO.write(image, "png", Base64.getEncoder().wrap(os));
+            result = os.toString(StandardCharsets.UTF_8.name());
+        } catch (IOException e) {
+            MyLog.error(e.getLocalizedMessage(), e);
+        }
+
+        ResponseManager.set(responseChannel, IMAGE_TAG + result);
+    }
+
+    @Override
+    public void getWebcamImage(int index) {
     }
 
 }

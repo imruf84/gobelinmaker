@@ -1,7 +1,5 @@
-package gobelinmaker.visual.server;
+package gobelinmaker.console;
 
-import com.github.sarxos.webcam.Webcam;
-import com.github.sarxos.webcam.WebcamResolution;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,70 +14,66 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.image.BufferedImage;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicReference;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
- * Szimulátor panel.
+ * Pan zoom panel.
  *
  * @author imruf84
  */
-public class VisualServerPanel extends JPanel {
+abstract public class PanZoomPanel extends JPanel {
 
+    /**
+     * Alapértelmezett minimális nagytási faktor.
+     */
     public static final int DEFAULT_MIN_ZOOM_LEVEL = -20;
+    /**
+     * Alapértelmezett maximális nagytási faktor.
+     */
     public static final int DEFAULT_MAX_ZOOM_LEVEL = 10;
+    /**
+     * Alapértelmezett nagyítási szorzó faktor.
+     */
     public static final double DEFAULT_ZOOM_MULTIPLICATION_FACTOR = 1.2;
 
+    /**
+     * Nagyítási faktor.
+     */
     private int zoomLevel = 0;
+    /**
+     * Minimális nagytási faktor.
+     */
     private final int minZoomLevel = DEFAULT_MIN_ZOOM_LEVEL;
+    /**
+     * Maximális nagytási faktor.
+     */
     private final int maxZoomLevel = DEFAULT_MAX_ZOOM_LEVEL;
+    /**
+     * Nagyítási szorzó faktor.
+     */
     private final double zoomMultiplicationFactor = DEFAULT_ZOOM_MULTIPLICATION_FACTOR;
-
+    /**
+     * Drag esemény kezdete.
+     */
     private Point dragStartScreen;
+    /**
+     * Drag esemény vége.
+     */
     private Point dragEndScreen;
+    /**
+     * Jelenlegi transzformáció.
+     */
     private final AffineTransform coordTransform = new AffineTransform();
+    /**
+     * Inicializálunk?
+     */
     private boolean init = true;
-    BufferedImage image = null;
-    private final AtomicReference<Webcam> webcam = new AtomicReference<>(null);
-    private final AtomicReference<BufferedImage> webcamImage = new AtomicReference<>(null);
-    private final Timer webcamTimer;
 
     /**
      * Konstruktor.
      */
-    public VisualServerPanel() {
-
-        /*try {
-            image = ImageIO.read(new URL("http://www.findcatnames.com/wp-content/uploads/2017/01/tabby-cat-names.jpg"));
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(VisualServerPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(VisualServerPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        webcamTimer = new Timer(true);
-        webcamTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Webcam wc = webcam.get();
-                if (wc != null) {
-
-                    if (!wc.isOpen() && !wc.getLock().isLocked()) {
-                        //wc.setViewSize(new Dimension(640,480));
-                        wc.setCustomViewSizes(new Dimension[]{WebcamResolution.HD720.getSize()});
-                        wc.setViewSize(WebcamResolution.HD720.getSize());
-                        wc.open();
-                    }
-
-                    webcamImage.set(wc.getImage());
-
-                    revalidate();
-                    repaint();
-                }
-            }
-        }, 0, 100);
+    public PanZoomPanel() {
 
         setLayout(new BorderLayout());
         setMinimumSize(new Dimension(300, 300));
@@ -126,26 +120,13 @@ public class VisualServerPanel extends JPanel {
 
     }
 
-    public void closeWebcam(boolean cancelTimer) {
-
-        if (cancelTimer) {
-            webcamTimer.cancel();
-        }
-
-        Webcam wc = webcam.get();
-
-        if (wc != null && wc.isOpen()) {
-            wc.close();
-        }
-
-        webcam.set(null);
-    }
-
-    public void setWebcam(Webcam pwc) {
-        closeWebcam(false);
-        webcam.set(pwc);
-    }
-
+    /**
+     * Pont transzformálása.
+     *
+     * @param p1 pont
+     * @return transzformált pont
+     * @throws NoninvertibleTransformException kivétel
+     */
     private java.awt.geom.Point2D.Float transformPoint(Point p1) throws NoninvertibleTransformException {
         AffineTransform inverse = coordTransform.createInverse();
 
@@ -154,6 +135,11 @@ public class VisualServerPanel extends JPanel {
         return p2;
     }
 
+    /**
+     * Kamera mozgatása.
+     *
+     * @param e egéresemény
+     */
     private void moveCamera(MouseEvent e) {
 
         if (!SwingUtilities.isMiddleMouseButton(e)) {
@@ -174,11 +160,19 @@ public class VisualServerPanel extends JPanel {
         }
     }
 
+    /**
+     * Komponens újrarajzolása.
+     */
     private void repaintComponent() {
         revalidate();
         repaint();
     }
 
+    /**
+     * Nagyítás.
+     *
+     * @param e egéresemény
+     */
     private void zoomCamera(MouseWheelEvent e) {
         try {
             int wheelRotation = e.getWheelRotation();
@@ -229,16 +223,18 @@ public class VisualServerPanel extends JPanel {
             g.setTransform(coordTransform);
         }
 
-        drawImage(g, webcamImage.get());
-
         g.setColor(Color.BLACK);
 
-        g.drawLine(-100, 0, 1500, 0);
-        g.drawLine(0, -100, 0, 1000);
-
+        drawScene(g);
     }
 
-    private void drawImage(Graphics2D g, BufferedImage image) {
+    /**
+     * Kép kirjzolása.
+     *
+     * @param g kontextus
+     * @param image kép
+     */
+    protected void drawImage(Graphics2D g, BufferedImage image) {
 
         if (image == null) {
             return;
@@ -252,4 +248,10 @@ public class VisualServerPanel extends JPanel {
         g.setTransform(tr);
     }
 
+    /**
+     * Jelenet kirajzolása.
+     *
+     * @param g kontextus
+     */
+    protected abstract void drawScene(Graphics2D g);
 }

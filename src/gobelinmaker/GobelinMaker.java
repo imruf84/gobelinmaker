@@ -7,7 +7,7 @@ import com.martiansoftware.jsap.SimpleJSAP;
 import com.martiansoftware.jsap.Switch;
 import gobelinmaker.console.GobelinConsole;
 import gobelinmaker.server.GobelinServer;
-import gobelinmaker.simulator.SimulatorFrame;
+import gobelinmaker.visual.server.VisualServerFrame;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -32,31 +32,38 @@ public class GobelinMaker {
 
         MyLog.showDebugMessages = true;
         setLookAndFeel();
-        
+
         SimpleJSAP jsap = new SimpleJSAP(
                 "gm.jar",
                 "Runs Gobelin Maker Command Line Tool",
                 new Parameter[]{
                     new Switch("server").setShortFlag('s').setLongFlag("server").setHelp("Starts a server."),
                     new Switch("console").setShortFlag('c').setLongFlag("console").setHelp("Starts a console."),
-                    new Switch("simulator").setShortFlag('S').setLongFlag("simulator").setHelp("Starts a simulator."),}
+                    new Switch("vserver").setShortFlag('S').setLongFlag("vserver").setHelp("Starts a visual server."),}
         );
 
+        // Ha nincsenek paraméterek, akkor kiírjuk a használat módját.
+        if (args.length < 1) {
+            jsap.parse(new String[]{"--help"});
+            System.exit(0);
+        }
+
+        // Egyébként mehet a munka.
         JSAPResult config = jsap.parse(args);
         if (jsap.messagePrinted()) {
             System.exit(0);
         }
-        
+
         // Szerver futtatása ha szükséges.
         if (config.getBoolean("server")) {
             GobelinServer server = new GobelinServer();
             server.startServer();
         }
-        
-        // Szimulátor futtatása ha szükséges.
-        if (config.getBoolean("simulator")) {
-            
-            SimulatorFrame f = new SimulatorFrame();
+
+        // Szerver oldali GUI futtatása ha szükséges.
+        if (config.getBoolean("vserver")) {
+
+            VisualServerFrame f = new VisualServerFrame();
             f.setVisible(true);
         }
 
@@ -64,10 +71,11 @@ public class GobelinMaker {
         if (config.getBoolean("console")) {
             GobelinConsole console = new GobelinConsole();
             console.start();
+            console.runCommand("c 127.0.0.1");
         }
 
     }
-    
+
     public static void setLookAndFeel() throws FontFormatException, IOException {
         /* Téma beállítása. */
         javax.swing.plaf.metal.MetalLookAndFeel.setCurrentTheme(new MyMetalTheme());
@@ -82,7 +90,7 @@ public class GobelinMaker {
         UIManager.put("ProgressBar.selectionBackground", Color.BLACK);
         // Betűtípusok beállítása.
         Font font = Font.createFont(Font.TRUETYPE_FONT, GobelinMaker.class.getResourceAsStream("/gobelinmaker/theme/cour.ttf")).deriveFont(Font.BOLD, 14);
-        for (String s : new String[]{"Button.font","ToggleButton.font","RadioButton.font","CheckBox.font","ColorChooser.font","ComboBox.font","Label.font","List.font","MenuBar.font","MenuItem.font","RadioButtonMenuItem.font","CheckBoxMenuItem.font","Menu.font","PopupMenu.font","OptionPane.font","Panel.font","ProgressBar.font","ScrollPane.font","Viewport.font","TabbedPane.font","Table.font","TableHeader.font","TextField.font","PasswordField.font","TextArea.font","TextPane.font","EditorPane.font","TitledBorder.font","ToolBar.font","ToolTip.font","Tree.font"}) {
+        for (String s : new String[]{"Button.font", "ToggleButton.font", "RadioButton.font", "CheckBox.font", "ColorChooser.font", "ComboBox.font", "Label.font", "List.font", "MenuBar.font", "MenuItem.font", "RadioButtonMenuItem.font", "CheckBoxMenuItem.font", "Menu.font", "PopupMenu.font", "OptionPane.font", "Panel.font", "ProgressBar.font", "ScrollPane.font", "Viewport.font", "TabbedPane.font", "Table.font", "TableHeader.font", "TextField.font", "PasswordField.font", "TextArea.font", "TextPane.font", "EditorPane.font", "TitledBorder.font", "ToolBar.font", "ToolTip.font", "Tree.font"}) {
             UIManager.getLookAndFeelDefaults().put(s, font);
         }
     }

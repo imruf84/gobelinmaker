@@ -17,7 +17,7 @@ public class MyLog {
 
     /**
      * Aktuális dátum és idő lekérdezése.
-     * 
+     *
      * @return aktuális dátum és idő
      */
     private static String getCurrentDateAndTime() {
@@ -65,10 +65,10 @@ public class MyLog {
             e.printStackTrace(System.err);
         }
     }
-    
+
     /**
      * Szöveg kiírása.
-     * 
+     *
      * @param msg szöveg
      */
     public static void println(String msg) {

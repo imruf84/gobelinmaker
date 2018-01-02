@@ -5,8 +5,19 @@ import gobelinmaker.MyLog;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Eszközkezelő osztálya.
+ *
+ * @author imruf84
+ */
 public class DeviceManager extends HashMap<String, Device> {
 
+    /**
+     * Csatlakoztatott eszközök felderítése.
+     *
+     * @return csatlakoztatott eszköz(ök) esetén igaz egyébként hamis
+     * @throws InterruptedException kivétel
+     */
     public boolean scan() throws InterruptedException {
 
         MyLog.info("Scanning for devices...");

@@ -1,5 +1,6 @@
 package gobelinmaker.console;
 
+import asg.cliche.CLIException;
 import gobelinmaker.server.CommandResponse;
 import gobelinmaker.server.CommandRequest;
 import asg.cliche.Command;
@@ -12,12 +13,18 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import gobelinmaker.MyLog;
+import gobelinmaker.server.GobelinServer;
 import gobelinmaker.server.IServerCommands;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import javax.imageio.ImageIO;
 
 /**
  * Konzol alaposztálya.
@@ -51,14 +58,45 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
      * Konzol indítása.
      *
      * @throws IOException kivétel
+     * @throws java.lang.InterruptedException kivétel
      */
-    public void start() throws IOException {
-        sh = ShellFactory.createConsoleShell("",
-                "Gobelin Maker Console Client v0.1\n"
-                + "Enter '?list-all' or '?la' to list all available commands or 'exit' to quit...",
-                new GobelinConsole());
-        sh.setDisplayTime(true);
-        sh.commandLoop();
+    public void start() throws IOException, InterruptedException {
+
+        // Külön szálban futtatjuk a parsert, hogy programból is küldhessünk utasításokat.
+        Thread consoleThread = new Thread(() -> {
+            try {
+                sh = ShellFactory.createConsoleShell("",
+                        "Gobelin Maker Console Client v0.1\n"
+                        + "Enter '?list-all' or '?la' to list all available commands or 'exit' to quit...",
+                        new GobelinConsole());
+                sh.setDisplayTime(true);
+                sh.commandLoop();
+            } catch (IOException ex) {
+                MyLog.error(ex.getLocalizedMessage(), ex);
+            }
+        });
+
+        consoleThread.start();
+        TimeUnit.SECONDS.sleep(1);
+    }
+
+    /**
+     * Shell lekérdezése.
+     *
+     * @return shell
+     */
+    private Shell getShell() {
+        return sh;
+    }
+
+    /**
+     * Parancs futtatása.
+     *
+     * @param command parancs
+     * @throws asg.cliche.CLIException kivétel
+     */
+    public void runCommand(String command) throws CLIException {
+        getShell().processLine(command);
     }
 
     /**
@@ -90,7 +128,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
      *
      * @param text szöveg
      */
-    @Command(description = "Prints a text to the console")
+    @Command(description = "Prints a text to the console.")
     public void print(
             @Param(name = "text", description = "Text to print.") String text
     ) {
@@ -111,6 +149,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
             return;
         }
 
+        // Nincs szükségünk minden (redundáns) ip címre.
         address.forEach((addr) -> {
             String ip = addr.toString().replace("/", "");
             if (ip.startsWith("192.")) {
@@ -147,7 +186,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
         }
 
         // Csatlakozás.
-        client = new Client();
+        client = new Client(GobelinServer.BUFFER_SIZE, GobelinServer.BUFFER_SIZE);
         Kryo kryo = client.getKryo();
         kryo.register(CommandRequest.class);
         kryo.register(CommandResponse.class);
@@ -167,7 +206,25 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
             public void received(Connection connection, Object object) {
                 if (object instanceof CommandResponse) {
                     CommandResponse response = (CommandResponse) object;
-                    MyLog.println("SERVER:" + response.text);
+
+                    // Ha képet kaptunk, akkor megjelenítjük.
+                    if (response.text.startsWith(GobelinServer.IMAGE_TAG)) {
+
+                        String imageString = response.text.replaceFirst(GobelinServer.IMAGE_TAG, "");
+                        BufferedImage image;
+                        try {
+                            image = ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(imageString)));
+                            ImageViewer iw = new ImageViewer(image);
+                            iw.setVisible(true);
+                        } catch (IOException ex) {
+                            MyLog.error(ex.getLocalizedMessage(), ex);
+                        }
+
+                    } else {
+
+                        // Egyébként kiírjuk a szerver válaszát a konzolra.
+                        MyLog.println("SERVER:" + response.text);
+                    }
                     responseReceived.set(true);
                 }
             }
@@ -177,7 +234,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
             client.connect(5000, ip, PORT_TCP, PORT_UDP);
             while (!connected.get()) {
             }
-            sh.setPath(Arrays.asList(ip));
+            getShell().setPath(Arrays.asList(ip));
             MyLog.info("Connected to server: " + client.getRemoteAddressTCP().getAddress().toString().replaceAll("/", ""));
         } catch (IOException e) {
             MyLog.error(e.getLocalizedMessage().replaceAll("/", ""), e);
@@ -200,10 +257,15 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
         client.close();
         while (null != client) {
         }
-        sh.setPath(Arrays.asList(""));
+        getShell().setPath(Arrays.asList(""));
         MyLog.info("Disconnected.");
     }
 
+    /**
+     * Shell megadása.
+     *
+     * @param shell shell
+     */
     @Override
     public void cliSetShell(Shell shell) {
         sh = shell;
@@ -239,6 +301,52 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
 
     @Override
     public void listDevices(int responseChannel) {
+    }
+
+    @Override
+    @Command(description = "List connected webcams.")
+    public void listWebcams() {
+        runCommandOnServer("list-webcams");
+    }
+
+    @Override
+    public void listWebcams(int responseChannel) {
+    }
+
+    @Override
+    @Command(description = "Opens a webcam specified by index.")
+    public void openWebcam(
+            @Param(name = "index", description = "Index of webcam.") int index
+    ) {
+        runCommandOnServer("open-webcam " + index);
+    }
+
+    @Override
+    public void openWebcam(int index, int responseChannel) {
+    }
+
+    @Override
+    @Command(description = "Close a webcam specified by index.")
+    public void closeWebcam(
+            @Param(name = "index", description = "Index of webcam.") int index
+    ) {
+        runCommandOnServer("close-webcam " + index);
+    }
+
+    @Override
+    public void closeWebcam(int index, int responseChannel) {
+    }
+
+    @Override
+    @Command(description = "Gets a webcam image specified by index.")
+    public void getWebcamImage(
+            @Param(name = "index", description = "Index of webcam.") int index
+    ) {
+        runCommandOnServer("get-webcam-image " + index);
+    }
+
+    @Override
+    public void getWebcamImage(int index, int responseChannel) {
     }
 
 }
