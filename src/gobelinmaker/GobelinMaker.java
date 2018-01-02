@@ -71,7 +71,7 @@ public class GobelinMaker {
         if (config.getBoolean("console")) {
             GobelinConsole console = new GobelinConsole();
             console.start();
-            console.runCommand("c 127.0.0.1");
+            //console.runCommand("c 127.0.0.1");
         }
 
     }

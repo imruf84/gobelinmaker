@@ -10,12 +10,11 @@ import java.util.HashMap;
  * @author imruf84
  */
 public class WebcamManager extends HashMap<Integer, ServerCamera> {
-
+    
     /**
-     * Konstruktor.
+     * Csatlakoztatott kamerák felderítése.
      */
-    public WebcamManager() {
-
+    public boolean scan() {
         MyLog.info("Scanning for webcams...");
 
         int i = 0;
@@ -29,7 +28,10 @@ public class WebcamManager extends HashMap<Integer, ServerCamera> {
 
         if (isEmpty()) {
             MyLog.warning("No webcams found.");
+            return false;
         }
+        
+        return true;
     }
 
     @Override

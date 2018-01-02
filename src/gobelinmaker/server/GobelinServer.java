@@ -92,6 +92,7 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
      */
     public void startServer() throws Exception {
 
+        WEBCAM_MANAGER.scan();
         DEVICE_MANAGER.scan();
 
         sh = ShellFactory.createConsoleShell("", "", new GobelinServer());
