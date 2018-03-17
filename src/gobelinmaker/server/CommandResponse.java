@@ -7,6 +7,9 @@ package gobelinmaker.server;
  */
 public class CommandResponse {
 
+    public CommandResponse() {
+    }
+
     /**
      * Válasz szövege.
      */

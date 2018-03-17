@@ -20,6 +20,7 @@ void loop() {
     if (inputString.startsWith(command)) {
       inputString = inputString.substring(command.length());
       inputString.toUpperCase();
+      delay(20000);
       Serial.println(inputString);
     }
     

@@ -70,8 +70,9 @@ public class ServerCamera {
 
         MyLog.info("Opening webcam '" + getName() + "'...");
 
-        getWebcam().setCustomViewSizes(new Dimension[]{WebcamResolution.HD720.getSize()});
-        getWebcam().setViewSize(WebcamResolution.HD720.getSize());
+        getWebcam().setCustomViewSizes(new Dimension[]{WebcamResolution.HD720.getSize(), new Dimension(1920, 1080)});
+        getWebcam().setViewSize(new Dimension(1920, 1080));
+        //getWebcam().setViewSize(WebcamResolution.HD720.getSize());
 
         getWebcam().open();
     }
@@ -97,7 +98,10 @@ public class ServerCamera {
         if (!getWebcam().isOpen()) {
             return null;
         }
-        return getWebcam().getImage();
+        MyLog.debug("Getting image from " + getName() + "...");
+        BufferedImage bi = getWebcam().getImage();
+        MyLog.debug("Image got from " + getName() + ".");
+        return bi;
     }
 
     /**

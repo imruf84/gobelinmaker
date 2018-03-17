@@ -7,6 +7,9 @@ package gobelinmaker.server;
  */
 public class CommandRequest {
 
+    public CommandRequest() {
+    }
+
     /**
      * Parancs szövege.
      */

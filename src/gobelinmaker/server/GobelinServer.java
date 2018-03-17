@@ -35,7 +35,7 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
     /**
      * Átviteli buffer mérete.
      */
-    public static int BUFFER_SIZE = 10 * 1024 * 1024;
+    public static int BUFFER_SIZE = 20 * 1024 * 1024;
     /**
      * Kép átvitele esetén használandó előtag.
      */
@@ -100,6 +100,8 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
         Kryo kryo = getKryo();
         kryo.register(CommandRequest.class);
         kryo.register(CommandResponse.class);
+        kryo.register(byte[].class);
+        kryo.register(ImageResponse.class);
 
         addListener(new Listener() {
             @Override
@@ -115,19 +117,35 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
                     MyLog.debug("CLIENT:" + request.text);
                     int responseChannel = ResponseManager.add();
 
-                    try {
-                        sh.processLine(request.text + " " + responseChannel);
-                    } catch (CLIException e) {
-                        ResponseManager.set(responseChannel, e.getLocalizedMessage());
-                    }
-
-                    CommandResponse response = new CommandResponse();
-                    response.text = ResponseManager.pop(responseChannel);
-                    connection.sendTCP(response);
+                    /* HACK: Szükséges külön szálon futtatni, hogy a hosszú ideig tartó folyamatok során
+                       tudjon továbbra is kommunikálni a kyronet, mert ha nem tudja fenntartani a kapcsolatot
+                       próbacsomagok küldésével, akkor megszakad a kapcsolat. */
+                    Thread t = new Thread(() -> {
+                        try {
+                            sh.processLine(request.text + " " + responseChannel);
+                        } catch (CLIException e) {
+                            ResponseManager.set(responseChannel, e.getLocalizedMessage());
+                        }
+                        
+                        CommandResponse response = new CommandResponse();
+                        response.text = ResponseManager.pop(responseChannel);
+                        MyLog.debug("SERVER RESPONSE:" + response.text.substring(0, Math.min(40, response.text.length())) + "...[" + response.text.length() + "]");
+                        
+                        if (response.text.startsWith(IMAGE_TAG)) {
+                            MyLog.debug("SERVER: Compressing data...");
+                            ImageResponse r = new ImageResponse();
+                            r.data = GzipUtil.zip(response.text);
+                            MyLog.debug("SERVER: Data compressed [" + response.text.getBytes().length + "->" + r.data.length + "=" + (response.text.getBytes().length - r.data.length) + "]");
+                            connection.sendTCP(r);
+                        } else {
+                            connection.sendTCP(response);
+                        }
+                    });
+                    t.start();
                 }
             }
         });
-        start();
+        new Thread(this).start();
         bind(GobelinConsole.PORT_TCP, GobelinConsole.PORT_UDP);
         MyLog.info("Server is listening on " + getIP() + ":" + GobelinConsole.PORT_TCP + "...");
     }
@@ -262,15 +280,20 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
         BufferedImage image = sc.getImage();
         String result = "";
 
+        MyLog.debug("Converting to Base64...");
+
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
 
         try {
             ImageIO.write(image, "png", Base64.getEncoder().wrap(os));
+            MyLog.debug("Converted to Base64.");
             result = os.toString(StandardCharsets.UTF_8.name());
+            MyLog.debug("Converting to string...");
         } catch (IOException e) {
             MyLog.error(e.getLocalizedMessage(), e);
         }
 
+        MyLog.debug("Converted to string.");
         ResponseManager.set(responseChannel, IMAGE_TAG + result);
     }
 

@@ -1,5 +1,8 @@
 package gobelinmaker.devicemanager;
 
+import gobelinmaker.MyLog;
+import jssc.SerialPortException;
+
 /**
  * Eszköz alaposztálya.
  *
@@ -43,16 +46,28 @@ public class Device {
      * @return válasz szövege
      */
     public String sendCommandAndWait(String command) {
-        arduino.serialWrite(command + "\n");
-        String s;
-        while ("".equals(s = arduino.serialRead())) {
+        String s = "ERROR";
+
+        try {
+            arduino.serialWrite(command + "\n");
+        } catch (SerialPortException ex) {
+            MyLog.error("Failed to send command: " + command, ex);
+            return s;
         }
+        try {
+            while ("".equals(s = arduino.serialRead())) {
+            }
+        } catch (InterruptedException ex) {
+            MyLog.error("Failed to send command: " + command, ex);
+            return s;
+        }
+
         return s.trim();
     }
 
     @Override
     public String toString() {
-        return "Device{" + "ID=" + ID + ", Port=" + arduino.getSerialPort().getSystemPortName() + '}';
+        return "Device{" + "ID=" + ID + ", Port=" + arduino.getSerialPort().getPortName() + '}';
     }
 
 }

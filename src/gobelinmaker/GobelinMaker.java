@@ -16,7 +16,9 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 /**
- * GobelinMaker alkalmazás alaposztálya.
+ * GobelinMaker alkalmazás alaposztálya. NOTE: Orange Pi fix: apt-get install
+ * libv4l-0 libv4l-dev libv4lconvert0 libjpeg8-dev apt-get install libcairo2-dev
+ * libjpeg62 libpango1.0-dev libgif-dev build-essential g++ imagemagick
  *
  * @author igalambo
  */
@@ -30,7 +32,7 @@ public class GobelinMaker {
      */
     public static void main(String[] args) throws Exception {
 
-        MyLog.showDebugMessages = true;
+        MyLog.showDebugMessages = !true;
         setLookAndFeel();
 
         SimpleJSAP jsap = new SimpleJSAP(
@@ -71,7 +73,6 @@ public class GobelinMaker {
         if (config.getBoolean("console")) {
             GobelinConsole console = new GobelinConsole();
             console.start();
-            //console.runCommand("c 127.0.0.1");
         }
 
     }

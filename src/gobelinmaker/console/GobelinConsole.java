@@ -14,7 +14,9 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import gobelinmaker.MyLog;
 import gobelinmaker.server.GobelinServer;
+import gobelinmaker.server.GzipUtil;
 import gobelinmaker.server.IServerCommands;
+import gobelinmaker.server.ImageResponse;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -53,6 +55,14 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
      * Válaszra való várakozás jelzője.
      */
     private final AtomicBoolean responseReceived = new AtomicBoolean(true);
+    /**
+     * Szerver válasz időtúllépés ideje.
+     */
+    private final long SERVER_COMMAND_TIMEOUT = 15000;
+    /**
+     * Legutóbbi csatlakozás ip címe.
+     */
+    private String prevIP = "";
 
     /**
      * Konzol indítása.
@@ -105,6 +115,16 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
      * @param command parancs
      */
     public void runCommandOnServer(String command) {
+        runCommandOnServer(command, 0);
+    }
+    
+    /**
+     * Parancs futtatása szerveren.
+     *
+     * @param command parancs
+     * @param timeout időtúllépés
+     */
+    public void runCommandOnServer(String command, long timeout) {
 
         // Ha nincs kapcsolat szerverrel akkor kilépünk.
         if (!connected()) {
@@ -119,7 +139,18 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
 
         //...és megvárjuk a választ.
         responseReceived.set(false);
+        long startTime = System.currentTimeMillis();
         while (!responseReceived.get()) {
+            long estimatedTime = System.currentTimeMillis() - startTime;
+            if (timeout > 0 && estimatedTime > timeout) {
+                MyLog.info("Timeout");
+                responseReceived.set(true);
+                return;
+            }
+            try {
+                TimeUnit.MILLISECONDS.sleep(1);
+            } catch (InterruptedException ex) {
+            }
         }
     }
 
@@ -168,6 +199,19 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
     public boolean connected() {
         return client != null && client.isConnected();
     }
+    
+    /**
+     * Újracsatlakozás.
+     */
+    @Command(description = "Reconnect to the server.")
+    public void reconnect() {
+        if (prevIP.isEmpty()) {
+            MyLog.warning("There are no IP address from a previous connection.");
+            return;
+        }
+        
+        connect(prevIP);
+    }
 
     /**
      * Csatlakozás szerverhez.
@@ -184,12 +228,16 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
             MyLog.warning("You are already connected.");
             return;
         }
+        
+        prevIP = ip;
 
         // Csatlakozás.
         client = new Client(GobelinServer.BUFFER_SIZE, GobelinServer.BUFFER_SIZE);
         Kryo kryo = client.getKryo();
         kryo.register(CommandRequest.class);
         kryo.register(CommandResponse.class);
+        kryo.register(byte[].class);
+        kryo.register(ImageResponse.class);
         AtomicBoolean connected = new AtomicBoolean(false);
         client.addListener(new Listener() {
             @Override
@@ -203,9 +251,22 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
             }
 
             @Override
-            public void received(Connection connection, Object object) {
+            public void received(Connection connection, Object pObject) {
+                
+                Object object = pObject;
+                
+                if (object instanceof ImageResponse) {
+                    ImageResponse response = (ImageResponse) object;
+                    MyLog.debug("Image received [" + response.data.length + "]");
+                    CommandResponse cr = new CommandResponse();
+                    cr.text = GzipUtil.unzip(response.data);
+                    object = cr;
+                }
+
                 if (object instanceof CommandResponse) {
                     CommandResponse response = (CommandResponse) object;
+
+                    MyLog.debug("SERVER:" + response.text.substring(0, Math.min(response.text.length(), 20)) + "...[" + response.text.length() + "]");
 
                     // Ha képet kaptunk, akkor megjelenítjük.
                     if (response.text.startsWith(GobelinServer.IMAGE_TAG)) {
@@ -229,7 +290,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
                 }
             }
         });
-        client.start();
+        new Thread(client).start();
         try {
             client.connect(5000, ip, PORT_TCP, PORT_UDP);
             while (!connected.get()) {
@@ -342,7 +403,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
     public void getWebcamImage(
             @Param(name = "index", description = "Index of webcam.") int index
     ) {
-        runCommandOnServer("get-webcam-image " + index);
+        runCommandOnServer("get-webcam-image " + index, SERVER_COMMAND_TIMEOUT);
     }
 
     @Override
