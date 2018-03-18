@@ -247,6 +247,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
         
         if (null == ip) {
             MyLog.warning("There are no servers found to connect.");
+            return;
         }
         
         connect(ip);
@@ -480,6 +481,31 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
 
     @Override
     public void getWebcamImage(int index, int responseChannel) {
+    }
+    
+    @Override
+    @Command(description = "Gets an image from the default webcam with a specified size.")
+    public void getWebcamImageResized(
+            @Param(name = "size", description = "Image size.") String size
+    ) {
+        runCommandOnServer("get-webcam-image-resized " + size);
+    }
+    
+    @Override
+    @Command(description = "Gets a webcam image with size by a specified index.")
+    public void getWebcamImageResized(
+            @Param(name = "index", description = "Index of webcam.") int index,
+            @Param(name = "size", description = "Image size.") String size
+    ) {
+        runCommandOnServer("get-webcam-image-resized " + index + " " + size);
+    }
+
+    @Override
+    public void getWebcamImageResized(int index, String size, int responseChannel) {
+    }
+    
+    @Override
+    public void getWebcamImageResized(String size, int responseChannel) {
     }
 
 }

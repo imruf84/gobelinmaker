@@ -55,7 +55,7 @@ public class ServerCamera {
      *
      * @return webkamera
      */
-    private Webcam getWebcam() {
+    public Webcam getWebcam() {
         return webcam;
     }
 
@@ -72,7 +72,6 @@ public class ServerCamera {
 
         getWebcam().setCustomViewSizes(new Dimension[]{WebcamResolution.HD720.getSize(), new Dimension(1920, 1080)});
         getWebcam().setViewSize(new Dimension(1920, 1080));
-        //getWebcam().setViewSize(WebcamResolution.HD720.getSize());
 
         getWebcam().open();
     }

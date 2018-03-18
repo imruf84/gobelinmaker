@@ -14,6 +14,7 @@ import gobelinmaker.MyLog;
 import gobelinmaker.console.GobelinConsole;
 import gobelinmaker.devicemanager.Device;
 import gobelinmaker.devicemanager.DeviceManager;
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,6 +27,9 @@ import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import org.imgscalr.Scalr;
+import org.imgscalr.Scalr.Method;
+import org.imgscalr.Scalr.Mode;
 
 /**
  * Szerver osztálya.
@@ -128,11 +132,11 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
                         } catch (CLIException e) {
                             ResponseManager.set(responseChannel, e.getLocalizedMessage());
                         }
-                        
+
                         CommandResponse response = new CommandResponse();
                         response.text = ResponseManager.pop(responseChannel);
                         MyLog.debug("SERVER RESPONSE:" + response.text.substring(0, Math.min(40, response.text.length())) + "...[" + response.text.length() + "]");
-                        
+
                         if (response.text.startsWith(IMAGE_TAG)) {
                             MyLog.debug("SERVER: Compressing data...");
                             ImageResponse r = new ImageResponse();
@@ -148,13 +152,13 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
             }
         });
         this.start();
-            try {
-                bind(GobelinConsole.PORT_TCP, GobelinConsole.PORT_UDP);
-                MyLog.info("Server is listening on " + getIP() + ":" + GobelinConsole.PORT_TCP + "...");
-            } catch (Exception ex) {
-                MyLog.error("", ex);
-            }
-        
+        try {
+            bind(GobelinConsole.PORT_TCP, GobelinConsole.PORT_UDP);
+            MyLog.info("Server is listening on " + getIP() + ":" + GobelinConsole.PORT_TCP + "...");
+        } catch (Exception ex) {
+            MyLog.error("", ex);
+        }
+
     }
 
     @Override
@@ -167,7 +171,7 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
     @Override
     public void serverPrint() {
     }
-    
+
     @Override
     @Command(description = "Send a command to the default device")
     public void doCommand(String command, int responseChannel) {
@@ -176,7 +180,7 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
             ResponseManager.set(responseChannel, "There are more than one device.");
             return;
         }
-        
+
         doCommand(DEVICE_MANAGER.getFirst().getID(), command, responseChannel);
     }
 
@@ -253,7 +257,7 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
     @Override
     public void openWebcam() {
     }
-    
+
     @Override
     @Command(description = "Opens the default webcam.")
     public void openWebcam(int responseChannel) {
@@ -261,7 +265,7 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
             ResponseManager.set(responseChannel, "There are more than one webcam.");
             return;
         }
-        
+
         openWebcam(0, responseChannel);
     }
 
@@ -291,7 +295,7 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
     @Override
     public void closeWebcam() {
     }
-    
+
     @Override
     @Command(description = "Close the default webcam.")
     public void closeWebcam(int responseChannel) {
@@ -299,7 +303,7 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
             ResponseManager.set(responseChannel, "There are more than one webcam.");
             return;
         }
-        
+
         closeWebcam(0, responseChannel);
     }
 
@@ -310,6 +314,30 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
             int responseChannel
     ) {
 
+        getWebcamImageResized(0, "", responseChannel);
+    }
+
+    @Override
+    public void getWebcamImage() {
+    }
+
+    @Override
+    @Command(description = "Gets an image from the default webcam.")
+    public void getWebcamImage(int responseChannel) {
+        getWebcamImage(0, responseChannel);
+    }
+
+    @Override
+    public void getWebcamImageResized(int index, String size) {
+    }
+
+    @Override
+    @Command(description = "Gets a webcam image with size by a specified index.")
+    public void getWebcamImageResized(
+            @Param(name = "index", description = "Index of webcam.") int index,
+            @Param(name = "size", description = "Image size.") String size,
+            int responseChannel
+    ) {
         ServerCamera sc = WEBCAM_MANAGER.get(index);
 
         if (null == sc) {
@@ -323,6 +351,16 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
         }
 
         BufferedImage image = sc.getImage();
+
+        // Kép átméretezése ha szükséges.
+        String sizes[] = new String[]{"1080p", "720p", "480p", "360p", "240p"};
+        if (!size.isEmpty()) {
+            if (!Arrays.asList(sizes).contains(size)) {
+                ResponseManager.set(responseChannel, "Unsupported image size: " + size + ".\nChoose one from the following list: " + Arrays.toString(sizes));
+                return;
+            }
+            image = Scalr.resize(image, Method.ULTRA_QUALITY, Mode.FIT_TO_HEIGHT, 1, Integer.parseInt(size.replaceAll("p", "")));
+        }
         String result = "";
 
         MyLog.debug("Converting to Base64...");
@@ -343,13 +381,15 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
     }
 
     @Override
-    public void getWebcamImage() {
+    public void getWebcamImageResized(String size) {
     }
-    
+
     @Override
-    @Command(description = "Gets an image from the default webcam.")
-    public void getWebcamImage(int responseChannel) {
-        getWebcamImage(0, responseChannel);
+    @Command(description = "Gets an image from the default webcam with a specified size.")
+    public void getWebcamImageResized(
+            @Param(name = "size", description = "Image size.") String size,
+            int responseChannel) {
+        getWebcamImageResized(0, size, responseChannel);
     }
 
 }

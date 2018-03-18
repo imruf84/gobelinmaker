@@ -104,4 +104,36 @@ public interface IServerCommands extends IDeviceCommand {
      * @param responseChannel válasz csatorna sorszáma
      */
     public void getWebcamImage(int index, int responseChannel);
+    
+    /**
+     * Kép készítése az alapértelmezett webkamerával.
+     * 
+     * @param size képméret
+     */
+    public void getWebcamImageResized(String size);
+    
+    /**
+     * Kép készítése az alapértelmezett webkamerával.
+     * 
+     * @param size képméret
+     * @param responseChannel válasz csatorna sorszáma
+     */
+    public void getWebcamImageResized(String size, int responseChannel);
+    
+    /**
+     * Kép készítése webkamerával.
+     *
+     * @param index webkamera sorszáma
+     * @param size képméret
+     */
+    public void getWebcamImageResized(int index, String size);
+
+    /**
+     * Kép készítése webkamerával.
+     *
+     * @param index webkamera sorszáma
+     * @param size képméret
+     * @param responseChannel válasz csatorna sorszáma
+     */
+    public void getWebcamImageResized(int index, String size, int responseChannel);
 }
