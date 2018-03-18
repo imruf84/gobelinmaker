@@ -23,6 +23,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -145,9 +147,14 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
                 }
             }
         });
-        new Thread(this).start();
-        bind(GobelinConsole.PORT_TCP, GobelinConsole.PORT_UDP);
-        MyLog.info("Server is listening on " + getIP() + ":" + GobelinConsole.PORT_TCP + "...");
+        this.start();
+            try {
+                bind(GobelinConsole.PORT_TCP, GobelinConsole.PORT_UDP);
+                MyLog.info("Server is listening on " + getIP() + ":" + GobelinConsole.PORT_TCP + "...");
+            } catch (Exception ex) {
+                MyLog.error("", ex);
+            }
+        
     }
 
     @Override
@@ -159,6 +166,22 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
 
     @Override
     public void serverPrint() {
+    }
+    
+    @Override
+    @Command(description = "Send a command to the default device")
+    public void doCommand(String command, int responseChannel) {
+
+        if (DEVICE_MANAGER.size() > 1) {
+            ResponseManager.set(responseChannel, "There are more than one device.");
+            return;
+        }
+        
+        doCommand(DEVICE_MANAGER.getFirst().getID(), command, responseChannel);
+    }
+
+    @Override
+    public void doCommand(String command) {
     }
 
     @Override
@@ -228,7 +251,18 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
     }
 
     @Override
-    public void openWebcam(int index) {
+    public void openWebcam() {
+    }
+    
+    @Override
+    @Command(description = "Opens the default webcam.")
+    public void openWebcam(int responseChannel) {
+        if (WEBCAM_MANAGER.size() > 1) {
+            ResponseManager.set(responseChannel, "There are more than one webcam.");
+            return;
+        }
+        
+        openWebcam(0, responseChannel);
     }
 
     @Override
@@ -255,7 +289,18 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
     }
 
     @Override
-    public void closeWebcam(int index) {
+    public void closeWebcam() {
+    }
+    
+    @Override
+    @Command(description = "Close the default webcam.")
+    public void closeWebcam(int responseChannel) {
+        if (WEBCAM_MANAGER.size() > 1) {
+            ResponseManager.set(responseChannel, "There are more than one webcam.");
+            return;
+        }
+        
+        closeWebcam(0, responseChannel);
     }
 
     @Override
@@ -298,7 +343,13 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
     }
 
     @Override
-    public void getWebcamImage(int index) {
+    public void getWebcamImage() {
+    }
+    
+    @Override
+    @Command(description = "Gets an image from the default webcam.")
+    public void getWebcamImage(int responseChannel) {
+        getWebcamImage(0, responseChannel);
     }
 
 }

@@ -117,7 +117,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
     public void runCommandOnServer(String command) {
         runCommandOnServer(command, 0);
     }
-    
+
     /**
      * Parancs futtatása szerveren.
      *
@@ -127,7 +127,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
     public void runCommandOnServer(String command, long timeout) {
 
         // Ha nincs kapcsolat szerverrel akkor kilépünk.
-        if (!connected()) {
+        if (!isConnected()) {
             MyLog.warning("You are not connected!");
             return;
         }
@@ -189,6 +189,30 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
         });
 
     }
+    
+    /**
+     * Első szerver ip címének a lekérdezése.
+     * 
+     * @return első szerver ip címe vagy null hiányzó szerverek esetén
+     */
+    public String getFirstServerIp() {
+        Client c = new Client();
+        List<InetAddress> address = c.discoverHosts(PORT_UDP, 5000);
+        c.close();
+        if (address.isEmpty()) {
+            return null;
+        }
+
+        // Nincs szükségünk minden (redundáns) ip címre.
+        for (InetAddress a : address) {
+            String ip = a.toString().replace("/", "");
+            if (ip.startsWith("192.")) {
+                return ip;
+            }
+        }
+        
+        return null;
+    }
 
     /**
      * Csatlakozás állapotának a lekérdezése.
@@ -196,10 +220,10 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
      * @return szerverrel való kapcsolat esetén igaz egyébként hamis
      */
     @Command(description = "Test the connection to a server.")
-    public boolean connected() {
+    public boolean isConnected() {
         return client != null && client.isConnected();
     }
-    
+
     /**
      * Újracsatlakozás.
      */
@@ -209,8 +233,23 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
             MyLog.warning("There are no IP address from a previous connection.");
             return;
         }
-        
+
         connect(prevIP);
+    }
+    
+    /**
+     * Csatlakozás az első szerverhez.
+     */
+    @Command(description = "Connects to the first server.")
+    public void connect(
+    ) {
+        String ip = getFirstServerIp();
+        
+        if (null == ip) {
+            MyLog.warning("There are no servers found to connect.");
+        }
+        
+        connect(ip);
     }
 
     /**
@@ -224,11 +263,11 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
     ) {
 
         // Ha már csatlakoztunk akkor kilépünk.
-        if (connected()) {
+        if (isConnected()) {
             MyLog.warning("You are already connected.");
             return;
         }
-        
+
         prevIP = ip;
 
         // Csatlakozás.
@@ -252,9 +291,9 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
 
             @Override
             public void received(Connection connection, Object pObject) {
-                
+
                 Object object = pObject;
-                
+
                 if (object instanceof ImageResponse) {
                     ImageResponse response = (ImageResponse) object;
                     MyLog.debug("Image received [" + response.data.length + "]");
@@ -290,16 +329,17 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
                 }
             }
         });
-        new Thread(client).start();
-        try {
-            client.connect(5000, ip, PORT_TCP, PORT_UDP);
-            while (!connected.get()) {
+            try {
+                client.start();
+                client.connect(5000, ip, PORT_TCP, PORT_UDP);
+                while (!connected.get()) {
+                }
+                getShell().setPath(Arrays.asList(ip));
+                MyLog.info("Connected to server: " + client.getRemoteAddressTCP().getAddress().toString().replaceAll("/", ""));
+            } catch (IOException e) {
+                MyLog.error(e.getLocalizedMessage().replaceAll("/", ""), e);
             }
-            getShell().setPath(Arrays.asList(ip));
-            MyLog.info("Connected to server: " + client.getRemoteAddressTCP().getAddress().toString().replaceAll("/", ""));
-        } catch (IOException e) {
-            MyLog.error(e.getLocalizedMessage().replaceAll("/", ""), e);
-        }
+
     }
 
     /**
@@ -309,7 +349,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
     public void disconnect() {
 
         // Ha nem vagyunk csatlakozva akkor kilépünk.
-        if (!connected()) {
+        if (!isConnected()) {
             MyLog.warning("You are already disconnected.");
             return;
         }
@@ -340,6 +380,17 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
 
     @Override
     public void serverPrint(int responseChannel) {
+    }
+    
+    @Override
+    @Command(description = "Send a command to the default device to run.")
+    public void doCommand(
+            @Param(name = "command", description = "The command to run.") String command) {
+        runCommandOnServer("do-command '" + command + "'");
+    }
+
+    @Override
+    public void doCommand(String command, int responseChannel) {
     }
 
     @Override
@@ -375,6 +426,13 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
     }
 
     @Override
+    @Command(description = "Opens the default webcam.")
+    public void openWebcam(
+    ) {
+        runCommandOnServer("open-webcam");
+    }
+    
+    @Override
     @Command(description = "Opens a webcam specified by index.")
     public void openWebcam(
             @Param(name = "index", description = "Index of webcam.") int index
@@ -386,6 +444,13 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
     public void openWebcam(int index, int responseChannel) {
     }
 
+    @Override
+    @Command(description = "Close the default webcam.")
+    public void closeWebcam(
+    ) {
+        runCommandOnServer("close-webcam");
+    }
+    
     @Override
     @Command(description = "Close a webcam specified by index.")
     public void closeWebcam(
@@ -399,11 +464,18 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
     }
 
     @Override
+    @Command(description = "Gets an image from the default webcam.")
+    public void getWebcamImage(
+    ) {
+        runCommandOnServer("get-webcam-image");
+    }
+    
+    @Override
     @Command(description = "Gets a webcam image specified by index.")
     public void getWebcamImage(
             @Param(name = "index", description = "Index of webcam.") int index
     ) {
-        runCommandOnServer("get-webcam-image " + index, SERVER_COMMAND_TIMEOUT);
+        runCommandOnServer("get-webcam-image " + index);
     }
 
     @Override

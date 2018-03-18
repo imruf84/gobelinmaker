@@ -27,6 +27,12 @@ public class MyArduino {
         serialPort = new SerialPort(portDescription);
     }
 
+    /**
+     * Olvasás a soros portról.
+     *
+     * @return kiolvasott karakterlánc
+     * @throws InterruptedException kivétel
+     */
     public String serialRead() throws InterruptedException {
 
         String result;
@@ -40,6 +46,13 @@ public class MyArduino {
         return result;
     }
 
+    /**
+     * Olvasás a soros portról időtúllépéssel.
+     *
+     * @param timeout időtúllépés értéke
+     * @return kiolvasott karakterlánc
+     * @throws InterruptedException kivétel
+     */
     public String serialRead(long timeout) throws InterruptedException {
 
         long startTime = System.currentTimeMillis();
@@ -61,6 +74,11 @@ public class MyArduino {
         return result;
     }
 
+    /**
+     * Kapcsolat nyitása.
+     *
+     * @throws SerialPortException kivétel
+     */
     void openConnection() throws SerialPortException {
         serialPort.openPort();
 
@@ -77,18 +95,37 @@ public class MyArduino {
         }
     }
 
-    void serialWrite(String id) throws SerialPortException {
-        serialPort.writeString(id);
+    /**
+     * Írás a soros portra.
+     *
+     * @param s szöveg
+     * @throws SerialPortException kivétel
+     */
+    void serialWrite(String s) throws SerialPortException {
+        serialPort.writeString(s);
     }
 
+    /**
+     * Kapcsolat bontása.
+     *
+     * @throws SerialPortException kivétel
+     */
     void closeConnection() throws SerialPortException {
         serialPort.closePort();
     }
 
+    /**
+     * Soros port lekérdezése.
+     *
+     * @return soros port
+     */
     SerialPort getSerialPort() {
         return serialPort;
     }
 
+    /**
+     * Soros port olvasást végző osztály.
+     */
     private class PortReader implements SerialPortEventListener {
 
         String r = "";
@@ -109,10 +146,18 @@ public class MyArduino {
             }
         }
 
+        /**
+         * Válasz lekérdezése.
+         *
+         * @return válasz
+         */
         public String getResponse() {
             return response.get();
         }
 
+        /**
+         * Inicializálása.
+         */
         public void init() {
             response.set("");
         }

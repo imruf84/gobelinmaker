@@ -46,6 +46,11 @@ public interface IServerCommands extends IDeviceCommand {
     public void listWebcams(int responseChannel);
 
     /**
+     * Alapértelmezett webkamera megnyitása.
+     */
+    public void openWebcam();
+    
+    /**
      * Webkamera megnyitása.
      *
      * @param index webkamera sorszáma
@@ -61,6 +66,11 @@ public interface IServerCommands extends IDeviceCommand {
     public void openWebcam(int index, int responseChannel);
 
     /**
+     * Alapértelmezett webkamera bezárása.
+     */
+    public void closeWebcam();
+    
+    /**
      * Webkamera bezárása.
      *
      * @param index webkamera sorszáma
@@ -75,6 +85,11 @@ public interface IServerCommands extends IDeviceCommand {
      */
     public void closeWebcam(int index, int responseChannel);
 
+    /**
+     * Kép készítése az alapértelmezett webkamerával.
+     */
+    public void getWebcamImage();
+    
     /**
      * Kép készítése webkamerával.
      *

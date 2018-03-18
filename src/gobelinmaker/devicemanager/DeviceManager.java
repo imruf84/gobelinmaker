@@ -52,5 +52,18 @@ public class DeviceManager extends HashMap<String, Device> {
         return devFound;
 
     }
+    
+    /**
+     * Első eszköz lekérdezése.
+     * 
+     * @return első eszköz
+     */
+    public Device getFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+        
+        return get(keySet().toArray()[0].toString());
+    }
 
 }

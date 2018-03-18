@@ -13,6 +13,8 @@ public class WebcamManager extends HashMap<Integer, ServerCamera> {
     
     /**
      * Csatlakoztatott kamerák felderítése.
+     * 
+     * @return sikeres találat esetén igaz egyébként hamis
      */
     public boolean scan() {
         MyLog.info("Scanning for webcams...");
@@ -32,6 +34,14 @@ public class WebcamManager extends HashMap<Integer, ServerCamera> {
         }
         
         return true;
+    }
+    
+    public ServerCamera getFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+        
+        return get((int)keySet().toArray()[0]);
     }
 
     @Override
