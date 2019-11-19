@@ -182,7 +182,7 @@ public class GobelinConsole implements ShellDependent, IServerCommands {
         }
 
         // Nincs szükségünk minden (redundáns) ip címre.
-        address.forEach((addr) -> {
+        address.forEach((InetAddress addr) -> {
             String ip = addr.toString().replace("/", "");
             if (ip.startsWith("192.")) {
                 MyLog.println(ip);

@@ -1,13 +1,10 @@
 package org.gobelinmaker.gobelinmaker;
 
-import com.martiansoftware.jsap.JSAPResult;
-import com.martiansoftware.jsap.Parameter;
-import com.martiansoftware.jsap.SimpleJSAP;
-import com.martiansoftware.jsap.Switch;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
+
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -15,6 +12,12 @@ import org.gobelinmaker.gobelinmaker.console.GobelinConsole;
 import org.gobelinmaker.gobelinmaker.server.GobelinServer;
 import org.gobelinmaker.gobelinmaker.theme.MyMetalTheme;
 import org.gobelinmaker.gobelinmaker.visual.server.VisualServerFrame;
+
+import com.esotericsoftware.minlog.Log;
+import com.martiansoftware.jsap.JSAPResult;
+import com.martiansoftware.jsap.Parameter;
+import com.martiansoftware.jsap.SimpleJSAP;
+import com.martiansoftware.jsap.Switch;
 
 /**
  * GobelinMaker alkalmazás alaposztálya. NOTE: Orange Pi fix: apt-get install
@@ -33,7 +36,8 @@ public class GobelinMaker {
      */
     public static void main(String[] args) throws Exception {
 
-        MyLog.showDebugMessages = !true;
+    	Log.NONE();
+        MyLog.showDebugMessages = false;
         setLookAndFeel();
 
         SimpleJSAP jsap = new SimpleJSAP(

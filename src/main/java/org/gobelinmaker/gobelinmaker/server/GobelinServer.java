@@ -39,11 +39,11 @@ public class GobelinServer extends Server implements ShellDependent, IServerComm
     /**
      * Átviteli buffer mérete.
      */
-    public static int BUFFER_SIZE = 20 * 1024 * 1024;
+    public static final int BUFFER_SIZE = 20 * 1024 * 1024;
     /**
      * Kép átvitele esetén használandó előtag.
      */
-    public static String IMAGE_TAG = "image:";
+    public static final String IMAGE_TAG = "image:";
 
     /**
      * Parancsértelmező.

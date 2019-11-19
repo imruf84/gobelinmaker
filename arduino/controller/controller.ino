@@ -1,6 +1,7 @@
 String inputString = "";
 boolean stringComplete = false;
 
+/*
 #include <AccelStepper.h>
 
 typedef struct s_stepper {
@@ -17,13 +18,13 @@ uint8_t steppersCount = sizeof(steppers)/sizeof(t_stepper);
 
 void setupSteppers() 
 {
-  /*for (uint8_t i = 0; i < steppersCount; i++)
+  for (uint8_t i = 0; i < steppersCount; i++)
   {
     steppers[i].stepper.setMaxSpeed(2000);
     steppers[i].stepper.setAcceleration(2000);
-  }*/
+  }
 }
-
+*/
 String getValue(String data, char separator, int index)
 {
     int found = 0;
@@ -41,7 +42,7 @@ String getValue(String data, char separator, int index)
 }
 
 bool waitingForSteppers = false;
-
+/*
 t_stepper* getStepperByName(String name)
 {
   for (uint8_t i = 0; i < steppersCount; i++)
@@ -51,13 +52,13 @@ t_stepper* getStepperByName(String name)
 
   return NULL;
 }
-
+*/
 
 void setup() {
   Serial.begin(9600);
   inputString.reserve(200);
 
-  setupSteppers();
+//  setupSteppers();
 }
 
 void loop() {
@@ -85,6 +86,7 @@ void loop() {
       String name = getValue(inputString, ' ', 0);
       int steps = getValue(inputString, ' ', 1).toInt();
 
+/*
       t_stepper *stepper = getStepperByName(name);
       if (NULL != stepper) {
 
@@ -104,7 +106,8 @@ void loop() {
       else
       {
         Serial.println(String("[ERROR] There are no stepper motor with name: " + name));
-      }
+      }*/
+      
     }
     
     inputString = "";
@@ -115,7 +118,7 @@ void loop() {
   // Handle steppers logic.
   if (waitingForSteppers) {
     waitingForSteppers = false;
-    for (uint8_t i = 0; i < steppersCount; i++)
+/*    for (uint8_t i = 0; i < steppersCount; i++)
     {
       steppers[i].stepper.run();
       if (steppers[i].stepper.distanceToGo() == 0) 
@@ -125,7 +128,7 @@ void loop() {
 
       waitingForSteppers = waitingForSteppers || steppers[i].running;
     }
-
+*/
     if (!waitingForSteppers)
     {
       Serial.println("[INFO] Steppers finished.");
