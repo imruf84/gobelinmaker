@@ -36,7 +36,7 @@ public class VisualServerFrame extends JFrame {
 
         setTitle("Gobelin Maker Simulator");
         setLayout(new BorderLayout());
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("gobelinmaker/theme/MainFrameIcon.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("org/gobelinmaker/gobelinmaker/theme/MainFrameIcon.png")));
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setOneTouchExpandable(false);

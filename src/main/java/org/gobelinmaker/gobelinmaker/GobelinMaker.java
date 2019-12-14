@@ -90,7 +90,7 @@ public class GobelinMaker {
         // Egyes témák esetében az alapértelmezett Enter leütés nem csinál semmit, ezért engedélyezzük külön.
         UIManager.getLookAndFeelDefaults().put("Button.defaultButtonFollowsFocus", Boolean.TRUE);
         // Görgetősávok témájának megváltoztatása sajátra, mert a lila szerintem túl gagyi.
-        UIManager.getLookAndFeelDefaults().put("ScrollBarUI", "gobelinmaker.theme.SimpleScrollBarUI");
+        UIManager.getLookAndFeelDefaults().put("ScrollBarUI", "org.gobelinmaker.gobelinmaker.theme.SimpleScrollBarUI");
         // Folyamatjelző felirata legyen fekete.
         UIManager.put("ProgressBar.selectionForeground", Color.BLACK);
         UIManager.put("ProgressBar.selectionBackground", Color.BLACK);

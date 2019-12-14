@@ -69,7 +69,7 @@ public class VisualServerPanel extends JPanel {
                     if (!wc.isOpen() && !wc.getLock().isLocked()) {
                         wc.setViewSize(new Dimension(640,480));
                         //wc.setCustomViewSizes(new Dimension[]{WebcamResolution.HD.getSize()});
-                        wc.setViewSize(WebcamResolution.HD.getSize());
+//                        wc.setViewSize(WebcamResolution.HD.getSize());
                         wc.open();
                     }
 
