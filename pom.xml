@@ -1,21 +1,75 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>org.gobelinmaker</groupId>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.0.RELEASE</version>
+		<relativePath/>
+	</parent>
+	<groupId>hu.galambo</groupId>
 	<artifactId>gobelinmaker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
 	<name>gobelinmaker</name>
-	<url>http://maven.apache.org</url>
+	<description>Gobelin Maker Application</description>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<vaadin.version>8.7.2</vaadin.version>
+		<vaadin.plugin.version>8.7.2</vaadin.plugin.version>
 	</properties>
+	
+	<repositories>
+		<repository>
+			<id>vaadin-addons</id>
+			<url>http://maven.vaadin.com/vaadin-addons</url>
+			<!--<url>http://maven.vaadin.com/</url> -->
+		</repository>
+	</repositories>
 
 	<dependencies>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter-data-jpa</artifactId> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+	        <groupId>com.vaadin</groupId>
+	        <artifactId>vaadin-push</artifactId>
+	    </dependency>
+	    <dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-themes</artifactId>
+		</dependency>
+		
+		
+		
+		
+		
+		
 		<dependency>
 			<groupId>com.budhash.cliche</groupId>
 			<artifactId>cliche-shell</artifactId>
@@ -46,16 +100,16 @@
 			<artifactId>kryonet</artifactId>
 			<version>2.22.0-RC1</version>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>2.0.0-alpha1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-nop</artifactId>
-			<version>2.0.0-alpha1</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.slf4j</groupId> -->
+<!-- 			<artifactId>slf4j-api</artifactId> -->
+<!-- 			<version>2.0.0-alpha1</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.slf4j</groupId> -->
+<!-- 			<artifactId>slf4j-nop</artifactId> -->
+<!-- 			<version>2.0.0-alpha1</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>com.github.sarxos</groupId>
 			<artifactId>webcam-capture</artifactId>
@@ -65,55 +119,233 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+<!-- 			<version>3.8.1</version> -->
 			<scope>test</scope>
 		</dependency>
+		
+		
+	    
 	</dependencies>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-bom</artifactId>
+				<version>${vaadin.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<build>
+		<finalName>GobelinMaker</finalName>
+		<sourceDirectory>src/main/java</sourceDirectory>
+
 		<resources>
+<!-- 			<resource> -->
+<!-- 				<directory>resources</directory> -->
+<!-- 				<filtering>true</filtering> -->
+<!-- 			</resource> -->
+<resource>
+     <directory>src/main/resources</directory>
+     <filtering>true</filtering>
+     <includes>
+          <include>**/*.properties</include>
+          <include>**/*.html</include>
+     </includes>
+</resource>
 			<resource>
-				<directory>src/main/java/org/gobelinmaker/gobelinmaker/theme</directory>
-				<targetPath>${basedir}/target/classes/org/gobelinmaker/gobelinmaker/theme</targetPath>
-				<includes>
-					<include>**/*.ttf</include>
-					<include>**/*.png</include>
-				</includes>
+				<directory>src/main/webapp</directory>
+				<filtering>false</filtering>
 			</resource>
 		</resources>
 
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+<!-- 				<version>3.5.1</version> -->
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+<!-- 				<version>3.2.0</version> -->
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<!-- Exclude an unnecessary file generated by the GWT compiler. -->
+					<packagingExcludes>WEB-INF/classes/VAADIN/widgetsets/WEB-INF/**</packagingExcludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+<!-- 				<version>3.0.0</version> -->
+				<!-- Clean up also any pre-compiled themes -->
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>src/main/webapp/VAADIN/themes</directory>
+							<includes>
+								<include>**/styles.css</include>
+								<include>**/styles.scss.cache</include>
+							</includes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
 
 			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>org.gobelinmaker.gobelinmaker.GobelinMaker</mainClass>
-						</manifest>
-					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-maven-plugin</artifactId>
+				<version>${vaadin.plugin.version}</version>
 				<executions>
 					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
 						<goals>
-							<goal>single</goal>
+							<goal>update-theme</goal>
+							<goal>update-widgetset</goal>
+							<goal>compile</goal>
+							<!-- Comment out compile-theme goal to use on-the-fly theme compilation -->
+							<goal>compile-theme</goal>
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+	
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
 
 </project>
+
+
+
+
+
+<!-- <project xmlns="http://maven.apache.org/POM/4.0.0" -->
+<!-- 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" -->
+<!-- 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> -->
+<!-- 	<modelVersion>4.0.0</modelVersion> -->
+
+<!-- 	<groupId>org.gobelinmaker</groupId> -->
+<!-- 	<artifactId>gobelinmaker</artifactId> -->
+<!-- 	<version>0.0.1-SNAPSHOT</version> -->
+<!-- 	<packaging>jar</packaging> -->
+
+<!-- 	<name>gobelinmaker</name> -->
+<!-- 	<url>http://maven.apache.org</url> -->
+
+<!-- 	<properties> -->
+<!-- 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
+<!-- 	</properties> -->
+
+<!-- 	<dependencies> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.budhash.cliche</groupId> -->
+<!-- 			<artifactId>cliche-shell</artifactId> -->
+<!-- 			<version>0.9.3</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.nativelibs4java</groupId> -->
+<!-- 			<artifactId>bridj</artifactId> -->
+<!-- 			<version>0.7.0</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.imgscalr</groupId> -->
+<!-- 			<artifactId>imgscalr-lib</artifactId> -->
+<!-- 			<version>4.2</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.martiansoftware</groupId> -->
+<!-- 			<artifactId>jsap</artifactId> -->
+<!-- 			<version>2.1</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.scream3r</groupId> -->
+<!-- 			<artifactId>jssc</artifactId> -->
+<!-- 			<version>2.8.0</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.esotericsoftware</groupId> -->
+<!-- 			<artifactId>kryonet</artifactId> -->
+<!-- 			<version>2.22.0-RC1</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.slf4j</groupId> -->
+<!-- 			<artifactId>slf4j-api</artifactId> -->
+<!-- 			<version>2.0.0-alpha1</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.slf4j</groupId> -->
+<!-- 			<artifactId>slf4j-nop</artifactId> -->
+<!-- 			<version>2.0.0-alpha1</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.github.sarxos</groupId> -->
+<!-- 			<artifactId>webcam-capture</artifactId> -->
+<!-- 			<version>0.3.12</version> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>junit</groupId> -->
+<!-- 			<artifactId>junit</artifactId> -->
+<!-- 			<version>3.8.1</version> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
+<!-- 	</dependencies> -->
+
+<!-- 	<build> -->
+<!-- 		<resources> -->
+<!-- 			<resource> -->
+<!-- 				<directory>src/main/java/org/gobelinmaker/gobelinmaker/theme</directory> -->
+<!-- 				<targetPath>${basedir}/target/classes/org/gobelinmaker/gobelinmaker/theme</targetPath> -->
+<!-- 				<includes> -->
+<!-- 					<include>**/*.ttf</include> -->
+<!-- 					<include>**/*.png</include> -->
+<!-- 				</includes> -->
+<!-- 			</resource> -->
+<!-- 		</resources> -->
+
+<!-- 		<plugins> -->
+<!-- 			<plugin> -->
+<!-- 				<artifactId>maven-compiler-plugin</artifactId> -->
+<!-- 				<configuration> -->
+<!-- 					<source>1.8</source> -->
+<!-- 					<target>1.8</target> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
+
+<!-- 			<plugin> -->
+<!-- 				<artifactId>maven-assembly-plugin</artifactId> -->
+<!-- 				<configuration> -->
+<!-- 					<archive> -->
+<!-- 						<manifest> -->
+<!-- 							<mainClass>org.gobelinmaker.gobelinmaker.GobelinMaker</mainClass> -->
+<!-- 						</manifest> -->
+<!-- 					</archive> -->
+<!-- 					<descriptorRefs> -->
+<!-- 						<descriptorRef>jar-with-dependencies</descriptorRef> -->
+<!-- 					</descriptorRefs> -->
+<!-- 				</configuration> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>make-assembly</id> -->
+<!-- 						<phase>package</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>single</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
+<!-- 		</plugins> -->
+<!-- 	</build> -->
+
+<!-- </project> -->
