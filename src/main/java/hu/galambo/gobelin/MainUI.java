@@ -23,7 +23,7 @@ import com.vaadin.ui.UI;
 @SpringUI(path = MainUI.APP_ROOT)
 @VaadinServletConfiguration(productionMode = false, ui = MainUI.class)
 @SuppressWarnings("serial")
-@Theme("MyTheme")
+@Theme("mytheme")
 public class MainUI extends UI implements ViewDisplay {
 	
 	@SuppressWarnings("unused")

@@ -1001,3 +1001,325 @@ To show debug window, add ?debug to your application URL.
 2019-12-16 20:10:41.119  INFO 5372 --- [http-nio-8081-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-12-16 20:11:35.378  INFO 5372 --- [RMI TCP Connection(4)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 2019-12-16 20:11:35.381  INFO 5372 --- [RMI TCP Connection(4)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-16 20:14:53.128  INFO 13868 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Starting GobelinmakerApplication on DESKTOP-KGSPN4P with PID 13868 (D:\Java\GobelinMaker\target\classes started by imruf84 in D:\Java\GobelinMaker)
+2019-12-16 20:14:53.137  INFO 13868 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : No active profile set, falling back to default profiles: default
+2019-12-16 20:14:53.315  INFO 13868 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\imruf84\.m2\repository\com\vaadin\vaadin-sass-compiler\0.9.13\vaadin-sass-compiler-0.9.13.jar referenced one or more files that do not exist: file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/sac-1.3.jar,file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/flute-1.3.0.gg2.jar,file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/yuicompressor-2.4.8.jar,file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/js-1.7R2.jar
+2019-12-16 20:14:53.316  INFO 13868 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-12-16 20:14:53.316  INFO 13868 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-12-16 20:14:54.153  INFO 13868 --- [restartedMain] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'com.vaadin.spring.VaadinConfiguration' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2019-12-16 20:14:54.719  INFO 13868 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2019-12-16 20:14:54.729  INFO 13868 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-16 20:14:54.730  INFO 13868 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-16 20:14:54.863  INFO 13868 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-16 20:14:54.881  INFO 13868 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet
+2019-12-16 20:14:54.882  INFO 13868 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Servlet will be mapped to URLs [/vaadinServlet/*, /VAADIN/*]
+2019-12-16 20:14:54.896  INFO 13868 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Setting servlet init parameters
+2019-12-16 20:14:54.896  INFO 13868 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [productionMode] = [false]
+2019-12-16 20:14:54.897  INFO 13868 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [resourceCacheTime] = [3600]
+2019-12-16 20:14:54.897  INFO 13868 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [heartbeatInterval] = [300]
+2019-12-16 20:14:54.898  INFO 13868 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [closeIdleSessions] = [false]
+2019-12-16 20:14:55.371  INFO 13868 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-16 20:14:55.515  INFO 13868 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Checking the application context for Vaadin UI mappings
+2019-12-16 20:14:55.520  INFO 13868 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet of type [com.vaadin.spring.server.SpringVaadinServlet]
+2019-12-16 20:14:55.523  INFO 13868 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Forwarding @SpringUI URLs from {/gobelin=org.springframework.web.servlet.mvc.ServletForwardingController@4ba8f024, /gobelin/=org.springframework.web.servlet.mvc.ServletForwardingController@4ba8f024}
+2019-12-16 20:14:55.655  INFO 13868 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-12-16 20:14:55.737  INFO 13868 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2019-12-16 20:14:55.743  INFO 13868 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Started GobelinmakerApplication in 3.214 seconds (JVM running for 4.323)
+2019-12-16 20:14:58.127  WARN 13868 --- [http-nio-8081-exec-2] c.v.s.DefaultDeploymentConfiguration     : 
+=================================================================
+Vaadin is running in DEBUG MODE.
+Add productionMode=true to web.xml to disable debug features.
+To show debug window, add ?debug to your application URL.
+=================================================================
+2019-12-16 20:14:58.438  INFO 13868 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-16 20:25:55.238  WARN 13868 --- [Catalina-utility-2] com.vaadin.server.VaadinSession          : A VaadinSession instance not associated to any service is getting unbound. Session destroy events will not be fired and UIs in the session will not get detached. This might happen if a session is deserialized but never used before it expires.
+2019-12-16 20:33:55.283  WARN 13868 --- [Catalina-utility-1] com.vaadin.server.VaadinSession          : A VaadinSession instance not associated to any service is getting unbound. Session destroy events will not be fired and UIs in the session will not get detached. This might happen if a session is deserialized but never used before it expires.
+2019-12-16 20:36:55.303  WARN 13868 --- [Catalina-utility-1] com.vaadin.server.VaadinSession          : A VaadinSession instance not associated to any service is getting unbound. Session destroy events will not be fired and UIs in the session will not get detached. This might happen if a session is deserialized but never used before it expires.
+2019-12-16 20:40:55.327  WARN 13868 --- [Catalina-utility-1] com.vaadin.server.VaadinSession          : A VaadinSession instance not associated to any service is getting unbound. Session destroy events will not be fired and UIs in the session will not get detached. This might happen if a session is deserialized but never used before it expires.
+2019-12-16 20:47:17.369  INFO 13868 --- [RMI TCP Connection(36)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2019-12-16 20:47:17.373  INFO 13868 --- [RMI TCP Connection(36)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-16 20:48:01.242  INFO 12444 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Starting GobelinmakerApplication on DESKTOP-KGSPN4P with PID 12444 (D:\Java\GobelinMaker\target\classes started by imruf84 in D:\Java\GobelinMaker)
+2019-12-16 20:48:01.246  INFO 12444 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : No active profile set, falling back to default profiles: default
+2019-12-16 20:48:01.360  INFO 12444 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\imruf84\.m2\repository\com\vaadin\vaadin-sass-compiler\0.9.13\vaadin-sass-compiler-0.9.13.jar referenced one or more files that do not exist: file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/sac-1.3.jar,file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/flute-1.3.0.gg2.jar,file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/yuicompressor-2.4.8.jar,file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/js-1.7R2.jar
+2019-12-16 20:48:01.360  INFO 12444 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-12-16 20:48:01.361  INFO 12444 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-12-16 20:48:02.513  INFO 12444 --- [restartedMain] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'com.vaadin.spring.VaadinConfiguration' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2019-12-16 20:48:03.373  INFO 12444 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2019-12-16 20:48:03.389  INFO 12444 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-16 20:48:03.389  INFO 12444 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-16 20:48:03.911  INFO 12444 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-16 20:48:03.937  INFO 12444 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet
+2019-12-16 20:48:03.937  INFO 12444 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Servlet will be mapped to URLs [/vaadinServlet/*, /VAADIN/*]
+2019-12-16 20:48:03.949  INFO 12444 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Setting servlet init parameters
+2019-12-16 20:48:03.950  INFO 12444 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [productionMode] = [false]
+2019-12-16 20:48:03.950  INFO 12444 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [resourceCacheTime] = [3600]
+2019-12-16 20:48:03.950  INFO 12444 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [heartbeatInterval] = [300]
+2019-12-16 20:48:03.950  INFO 12444 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [closeIdleSessions] = [false]
+2019-12-16 20:48:04.475  INFO 12444 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-16 20:48:04.681  INFO 12444 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Checking the application context for Vaadin UI mappings
+2019-12-16 20:48:04.693  INFO 12444 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet of type [com.vaadin.spring.server.SpringVaadinServlet]
+2019-12-16 20:48:04.701  INFO 12444 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Forwarding @SpringUI URLs from {/gobelin=org.springframework.web.servlet.mvc.ServletForwardingController@5fc7ddb2, /gobelin/=org.springframework.web.servlet.mvc.ServletForwardingController@5fc7ddb2}
+2019-12-16 20:48:04.842  INFO 12444 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-12-16 20:48:04.954  INFO 12444 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2019-12-16 20:48:04.963  INFO 12444 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Started GobelinmakerApplication in 4.349 seconds (JVM running for 6.018)
+2019-12-16 20:48:05.037  WARN 12444 --- [http-nio-8081-exec-1] c.v.s.DefaultDeploymentConfiguration     : 
+=================================================================
+Vaadin is running in DEBUG MODE.
+Add productionMode=true to web.xml to disable debug features.
+To show debug window, add ?debug to your application URL.
+=================================================================
+2019-12-16 20:48:10.924  INFO 12444 --- [http-nio-8081-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-16 20:49:00.161  INFO 12444 --- [Thread-7] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-16 20:54:49.345  INFO 14084 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Starting GobelinmakerApplication on DESKTOP-KGSPN4P with PID 14084 (D:\Java\GobelinMaker\target\classes started by imruf84 in D:\Java\GobelinMaker)
+2019-12-16 20:54:49.351  INFO 14084 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : No active profile set, falling back to default profiles: default
+2019-12-16 20:54:49.431  INFO 14084 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\imruf84\.m2\repository\com\vaadin\vaadin-sass-compiler\0.9.13\vaadin-sass-compiler-0.9.13.jar referenced one or more files that do not exist: file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/sac-1.3.jar,file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/flute-1.3.0.gg2.jar,file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/yuicompressor-2.4.8.jar,file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/js-1.7R2.jar
+2019-12-16 20:54:49.432  INFO 14084 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-12-16 20:54:49.432  INFO 14084 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-12-16 20:54:50.137  INFO 14084 --- [restartedMain] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'com.vaadin.spring.VaadinConfiguration' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2019-12-16 20:54:50.595  INFO 14084 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2019-12-16 20:54:50.605  INFO 14084 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-16 20:54:50.606  INFO 14084 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-16 20:54:50.681  INFO 14084 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-16 20:54:50.694  INFO 14084 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet
+2019-12-16 20:54:50.694  INFO 14084 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Servlet will be mapped to URLs [/vaadinServlet/*, /VAADIN/*]
+2019-12-16 20:54:50.707  INFO 14084 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Setting servlet init parameters
+2019-12-16 20:54:50.707  INFO 14084 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [productionMode] = [false]
+2019-12-16 20:54:50.707  INFO 14084 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [resourceCacheTime] = [3600]
+2019-12-16 20:54:50.707  INFO 14084 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [heartbeatInterval] = [300]
+2019-12-16 20:54:50.708  INFO 14084 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [closeIdleSessions] = [false]
+2019-12-16 20:54:51.118  INFO 14084 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-16 20:54:51.237  INFO 14084 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Checking the application context for Vaadin UI mappings
+2019-12-16 20:54:51.240  INFO 14084 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet of type [com.vaadin.spring.server.SpringVaadinServlet]
+2019-12-16 20:54:51.243  INFO 14084 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Forwarding @SpringUI URLs from {/gobelin=org.springframework.web.servlet.mvc.ServletForwardingController@3fa0e150, /gobelin/=org.springframework.web.servlet.mvc.ServletForwardingController@3fa0e150}
+2019-12-16 20:54:51.304  INFO 14084 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-12-16 20:54:51.373  INFO 14084 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2019-12-16 20:54:51.377  INFO 14084 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Started GobelinmakerApplication in 2.489 seconds (JVM running for 3.362)
+2019-12-16 20:54:52.653  WARN 14084 --- [http-nio-8081-exec-1] c.v.s.DefaultDeploymentConfiguration     : 
+=================================================================
+Vaadin is running in DEBUG MODE.
+Add productionMode=true to web.xml to disable debug features.
+To show debug window, add ?debug to your application URL.
+=================================================================
+2019-12-16 20:58:32.668  INFO 14084 --- [RMI TCP Connection(6)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2019-12-16 20:58:32.672  INFO 14084 --- [RMI TCP Connection(6)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:07:27.224  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Starting GobelinmakerApplication on DESKTOP-KGSPN4P with PID 11896 (D:\Java\GobelinMaker\target\classes started by imruf84 in D:\Java\GobelinMaker)
+2019-12-16 21:07:27.228  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : No active profile set, falling back to default profiles: default
+2019-12-16 21:07:27.301  INFO 11896 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\imruf84\.m2\repository\com\vaadin\vaadin-sass-compiler\0.9.13\vaadin-sass-compiler-0.9.13.jar referenced one or more files that do not exist: file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/sac-1.3.jar,file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/flute-1.3.0.gg2.jar,file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/yuicompressor-2.4.8.jar,file:/C:/Users/imruf84/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/js-1.7R2.jar
+2019-12-16 21:07:27.302  INFO 11896 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-12-16 21:07:27.303  INFO 11896 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-12-16 21:07:27.933  INFO 11896 --- [restartedMain] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'com.vaadin.spring.VaadinConfiguration' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2019-12-16 21:07:28.384  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2019-12-16 21:07:28.394  INFO 11896 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-16 21:07:28.395  INFO 11896 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-16 21:07:28.461  INFO 11896 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-16 21:07:28.473  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet
+2019-12-16 21:07:28.473  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Servlet will be mapped to URLs [/vaadinServlet/*, /VAADIN/*]
+2019-12-16 21:07:28.481  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Setting servlet init parameters
+2019-12-16 21:07:28.481  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [productionMode] = [false]
+2019-12-16 21:07:28.482  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [resourceCacheTime] = [3600]
+2019-12-16 21:07:28.482  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [heartbeatInterval] = [300]
+2019-12-16 21:07:28.482  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [closeIdleSessions] = [false]
+2019-12-16 21:07:28.829  INFO 11896 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:07:28.958  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Checking the application context for Vaadin UI mappings
+2019-12-16 21:07:28.962  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet of type [com.vaadin.spring.server.SpringVaadinServlet]
+2019-12-16 21:07:28.966  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Forwarding @SpringUI URLs from {/gobelin=org.springframework.web.servlet.mvc.ServletForwardingController@7d25c921, /gobelin/=org.springframework.web.servlet.mvc.ServletForwardingController@7d25c921}
+2019-12-16 21:07:29.036  INFO 11896 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-12-16 21:07:29.123  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2019-12-16 21:07:29.127  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Started GobelinmakerApplication in 2.284 seconds (JVM running for 3.114)
+2019-12-16 21:07:29.193  WARN 11896 --- [http-nio-8081-exec-2] c.v.s.DefaultDeploymentConfiguration     : 
+=================================================================
+Vaadin is running in DEBUG MODE.
+Add productionMode=true to web.xml to disable debug features.
+To show debug window, add ?debug to your application URL.
+=================================================================
+2019-12-16 21:07:34.123  INFO 11896 --- [http-nio-8081-exec-8] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-16 21:08:13.152  INFO 11896 --- [Thread-7] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:08:13.578  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Starting GobelinmakerApplication on DESKTOP-KGSPN4P with PID 11896 (D:\Java\GobelinMaker\target\classes started by imruf84 in D:\Java\GobelinMaker)
+2019-12-16 21:08:13.578  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : No active profile set, falling back to default profiles: default
+2019-12-16 21:08:13.813  INFO 11896 --- [restartedMain] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'com.vaadin.spring.VaadinConfiguration' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2019-12-16 21:08:13.890  WARN 11896 --- [restartedMain] org.apache.tomcat.util.modeler.Registry  : The MBean registry cannot be disabled because it has already been initialised
+2019-12-16 21:08:13.943  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2019-12-16 21:08:13.944  INFO 11896 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-16 21:08:13.944  INFO 11896 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-16 21:08:13.961  INFO 11896 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-16 21:08:13.965  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet
+2019-12-16 21:08:13.965  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Servlet will be mapped to URLs [/vaadinServlet/*, /VAADIN/*]
+2019-12-16 21:08:13.967  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Setting servlet init parameters
+2019-12-16 21:08:13.967  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [productionMode] = [false]
+2019-12-16 21:08:13.968  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [resourceCacheTime] = [3600]
+2019-12-16 21:08:13.968  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [heartbeatInterval] = [300]
+2019-12-16 21:08:13.968  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [closeIdleSessions] = [false]
+2019-12-16 21:08:14.128  INFO 11896 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:08:14.189  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Checking the application context for Vaadin UI mappings
+2019-12-16 21:08:14.194  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet of type [com.vaadin.spring.server.SpringVaadinServlet]
+2019-12-16 21:08:14.208  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Forwarding @SpringUI URLs from {/gobelin=org.springframework.web.servlet.mvc.ServletForwardingController@7d8a64f8, /gobelin/=org.springframework.web.servlet.mvc.ServletForwardingController@7d8a64f8}
+2019-12-16 21:08:14.343  INFO 11896 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-12-16 21:08:14.438  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2019-12-16 21:08:14.440  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Started GobelinmakerApplication in 0.899 seconds (JVM running for 48.428)
+2019-12-16 21:08:14.443  INFO 11896 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-12-16 21:08:14.605  WARN 11896 --- [http-nio-8081-exec-1] c.v.s.DefaultDeploymentConfiguration     : 
+=================================================================
+Vaadin is running in DEBUG MODE.
+Add productionMode=true to web.xml to disable debug features.
+To show debug window, add ?debug to your application URL.
+=================================================================
+2019-12-16 21:08:20.162  INFO 11896 --- [http-nio-8081-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-16 21:09:14.038  WARN 11896 --- [Catalina-utility-2] com.vaadin.server.VaadinSession          : A VaadinSession instance not associated to any service is getting unbound. Session destroy events will not be fired and UIs in the session will not get detached. This might happen if a session is deserialized but never used before it expires.
+2019-12-16 21:09:23.479  INFO 11896 --- [Thread-16] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:09:23.854  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Starting GobelinmakerApplication on DESKTOP-KGSPN4P with PID 11896 (D:\Java\GobelinMaker\target\classes started by imruf84 in D:\Java\GobelinMaker)
+2019-12-16 21:09:23.854  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : No active profile set, falling back to default profiles: default
+2019-12-16 21:09:24.035  INFO 11896 --- [restartedMain] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'com.vaadin.spring.VaadinConfiguration' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2019-12-16 21:09:24.077  WARN 11896 --- [restartedMain] org.apache.tomcat.util.modeler.Registry  : The MBean registry cannot be disabled because it has already been initialised
+2019-12-16 21:09:24.140  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2019-12-16 21:09:24.141  INFO 11896 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-16 21:09:24.141  INFO 11896 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-16 21:09:24.172  INFO 11896 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-16 21:09:24.176  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet
+2019-12-16 21:09:24.176  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Servlet will be mapped to URLs [/vaadinServlet/*, /VAADIN/*]
+2019-12-16 21:09:24.179  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Setting servlet init parameters
+2019-12-16 21:09:24.179  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [productionMode] = [false]
+2019-12-16 21:09:24.179  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [resourceCacheTime] = [3600]
+2019-12-16 21:09:24.179  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [heartbeatInterval] = [300]
+2019-12-16 21:09:24.179  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [closeIdleSessions] = [false]
+2019-12-16 21:09:24.356  INFO 11896 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:09:24.413  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Checking the application context for Vaadin UI mappings
+2019-12-16 21:09:24.419  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet of type [com.vaadin.spring.server.SpringVaadinServlet]
+2019-12-16 21:09:24.421  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Forwarding @SpringUI URLs from {/gobelin=org.springframework.web.servlet.mvc.ServletForwardingController@7af69a95, /gobelin/=org.springframework.web.servlet.mvc.ServletForwardingController@7af69a95}
+2019-12-16 21:09:24.459  INFO 11896 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-12-16 21:09:24.498  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2019-12-16 21:09:24.502  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Started GobelinmakerApplication in 0.679 seconds (JVM running for 118.489)
+2019-12-16 21:09:24.504  INFO 11896 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-12-16 21:09:24.685  WARN 11896 --- [http-nio-8081-exec-1] c.v.s.DefaultDeploymentConfiguration     : 
+=================================================================
+Vaadin is running in DEBUG MODE.
+Add productionMode=true to web.xml to disable debug features.
+To show debug window, add ?debug to your application URL.
+=================================================================
+2019-12-16 21:09:32.269  INFO 11896 --- [http-nio-8081-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-16 21:09:48.188  INFO 11896 --- [Thread-30] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:09:48.617  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Starting GobelinmakerApplication on DESKTOP-KGSPN4P with PID 11896 (D:\Java\GobelinMaker\target\classes started by imruf84 in D:\Java\GobelinMaker)
+2019-12-16 21:09:48.617  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : No active profile set, falling back to default profiles: default
+2019-12-16 21:09:48.795  INFO 11896 --- [restartedMain] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'com.vaadin.spring.VaadinConfiguration' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2019-12-16 21:09:48.871  WARN 11896 --- [restartedMain] org.apache.tomcat.util.modeler.Registry  : The MBean registry cannot be disabled because it has already been initialised
+2019-12-16 21:09:48.953  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2019-12-16 21:09:48.954  INFO 11896 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-16 21:09:48.954  INFO 11896 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-16 21:09:48.986  INFO 11896 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-16 21:09:48.994  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet
+2019-12-16 21:09:48.995  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Servlet will be mapped to URLs [/vaadinServlet/*, /VAADIN/*]
+2019-12-16 21:09:48.997  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Setting servlet init parameters
+2019-12-16 21:09:48.997  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [productionMode] = [false]
+2019-12-16 21:09:48.997  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [resourceCacheTime] = [3600]
+2019-12-16 21:09:49.000  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [heartbeatInterval] = [300]
+2019-12-16 21:09:49.000  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [closeIdleSessions] = [false]
+2019-12-16 21:09:49.156  INFO 11896 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:09:49.218  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Checking the application context for Vaadin UI mappings
+2019-12-16 21:09:49.223  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet of type [com.vaadin.spring.server.SpringVaadinServlet]
+2019-12-16 21:09:49.230  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Forwarding @SpringUI URLs from {/gobelin=org.springframework.web.servlet.mvc.ServletForwardingController@7b096b85, /gobelin/=org.springframework.web.servlet.mvc.ServletForwardingController@7b096b85}
+2019-12-16 21:09:49.421  INFO 11896 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-12-16 21:09:49.493  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2019-12-16 21:09:49.497  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Started GobelinmakerApplication in 0.914 seconds (JVM running for 143.484)
+2019-12-16 21:09:49.504  INFO 11896 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-12-16 21:09:49.668  WARN 11896 --- [http-nio-8081-exec-1] c.v.s.DefaultDeploymentConfiguration     : 
+=================================================================
+Vaadin is running in DEBUG MODE.
+Add productionMode=true to web.xml to disable debug features.
+To show debug window, add ?debug to your application URL.
+=================================================================
+2019-12-16 21:10:05.807  INFO 11896 --- [http-nio-8081-exec-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-16 21:10:56.588  INFO 11896 --- [Thread-41] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:10:56.966  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Starting GobelinmakerApplication on DESKTOP-KGSPN4P with PID 11896 (D:\Java\GobelinMaker\target\classes started by imruf84 in D:\Java\GobelinMaker)
+2019-12-16 21:10:56.966  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : No active profile set, falling back to default profiles: default
+2019-12-16 21:10:57.152  INFO 11896 --- [restartedMain] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'com.vaadin.spring.VaadinConfiguration' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2019-12-16 21:10:57.187  WARN 11896 --- [restartedMain] org.apache.tomcat.util.modeler.Registry  : The MBean registry cannot be disabled because it has already been initialised
+2019-12-16 21:10:57.236  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2019-12-16 21:10:57.236  INFO 11896 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-16 21:10:57.237  INFO 11896 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-16 21:10:57.250  INFO 11896 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-16 21:10:57.252  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet
+2019-12-16 21:10:57.252  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Servlet will be mapped to URLs [/vaadinServlet/*, /VAADIN/*]
+2019-12-16 21:10:57.254  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Setting servlet init parameters
+2019-12-16 21:10:57.254  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [productionMode] = [false]
+2019-12-16 21:10:57.254  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [resourceCacheTime] = [3600]
+2019-12-16 21:10:57.254  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [heartbeatInterval] = [300]
+2019-12-16 21:10:57.254  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [closeIdleSessions] = [false]
+2019-12-16 21:10:57.359  INFO 11896 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:10:57.417  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Checking the application context for Vaadin UI mappings
+2019-12-16 21:10:57.421  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet of type [com.vaadin.spring.server.SpringVaadinServlet]
+2019-12-16 21:10:57.424  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Forwarding @SpringUI URLs from {/gobelin=org.springframework.web.servlet.mvc.ServletForwardingController@31235799, /gobelin/=org.springframework.web.servlet.mvc.ServletForwardingController@31235799}
+2019-12-16 21:10:57.451  INFO 11896 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-12-16 21:10:57.486  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2019-12-16 21:10:57.487  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Started GobelinmakerApplication in 0.552 seconds (JVM running for 211.475)
+2019-12-16 21:10:57.491  INFO 11896 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-12-16 21:10:57.568  WARN 11896 --- [http-nio-8081-exec-1] c.v.s.DefaultDeploymentConfiguration     : 
+=================================================================
+Vaadin is running in DEBUG MODE.
+Add productionMode=true to web.xml to disable debug features.
+To show debug window, add ?debug to your application URL.
+=================================================================
+2019-12-16 21:11:04.366  INFO 11896 --- [http-nio-8081-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-16 21:11:28.311  INFO 11896 --- [Thread-52] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:11:28.660  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Starting GobelinmakerApplication on DESKTOP-KGSPN4P with PID 11896 (D:\Java\GobelinMaker\target\classes started by imruf84 in D:\Java\GobelinMaker)
+2019-12-16 21:11:28.661  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : No active profile set, falling back to default profiles: default
+2019-12-16 21:11:28.874  INFO 11896 --- [restartedMain] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'com.vaadin.spring.VaadinConfiguration' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2019-12-16 21:11:28.915  WARN 11896 --- [restartedMain] org.apache.tomcat.util.modeler.Registry  : The MBean registry cannot be disabled because it has already been initialised
+2019-12-16 21:11:28.974  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2019-12-16 21:11:28.975  INFO 11896 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-16 21:11:28.975  INFO 11896 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-16 21:11:28.988  INFO 11896 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-16 21:11:28.990  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet
+2019-12-16 21:11:28.990  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Servlet will be mapped to URLs [/vaadinServlet/*, /VAADIN/*]
+2019-12-16 21:11:28.992  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Setting servlet init parameters
+2019-12-16 21:11:28.992  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [productionMode] = [false]
+2019-12-16 21:11:28.992  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [resourceCacheTime] = [3600]
+2019-12-16 21:11:28.992  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [heartbeatInterval] = [300]
+2019-12-16 21:11:28.992  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [closeIdleSessions] = [false]
+2019-12-16 21:11:29.107  INFO 11896 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:11:29.166  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Checking the application context for Vaadin UI mappings
+2019-12-16 21:11:29.169  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet of type [com.vaadin.spring.server.SpringVaadinServlet]
+2019-12-16 21:11:29.172  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Forwarding @SpringUI URLs from {/gobelin=org.springframework.web.servlet.mvc.ServletForwardingController@4e2e0a96, /gobelin/=org.springframework.web.servlet.mvc.ServletForwardingController@4e2e0a96}
+2019-12-16 21:11:29.209  INFO 11896 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-12-16 21:11:29.280  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2019-12-16 21:11:29.281  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Started GobelinmakerApplication in 0.659 seconds (JVM running for 243.268)
+2019-12-16 21:11:29.283  INFO 11896 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-12-16 21:11:29.347  WARN 11896 --- [http-nio-8081-exec-1] c.v.s.DefaultDeploymentConfiguration     : 
+=================================================================
+Vaadin is running in DEBUG MODE.
+Add productionMode=true to web.xml to disable debug features.
+To show debug window, add ?debug to your application URL.
+=================================================================
+2019-12-16 21:11:36.773  INFO 11896 --- [http-nio-8081-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-16 21:14:29.047  WARN 11896 --- [Catalina-utility-1] com.vaadin.server.VaadinSession          : A VaadinSession instance not associated to any service is getting unbound. Session destroy events will not be fired and UIs in the session will not get detached. This might happen if a session is deserialized but never used before it expires.
+2019-12-16 21:15:21.791  INFO 11896 --- [Thread-63] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:15:22.155  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Starting GobelinmakerApplication on DESKTOP-KGSPN4P with PID 11896 (D:\Java\GobelinMaker\target\classes started by imruf84 in D:\Java\GobelinMaker)
+2019-12-16 21:15:22.156  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : No active profile set, falling back to default profiles: default
+2019-12-16 21:15:22.391  INFO 11896 --- [restartedMain] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'com.vaadin.spring.VaadinConfiguration' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2019-12-16 21:15:22.459  WARN 11896 --- [restartedMain] org.apache.tomcat.util.modeler.Registry  : The MBean registry cannot be disabled because it has already been initialised
+2019-12-16 21:15:22.527  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2019-12-16 21:15:22.532  INFO 11896 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-16 21:15:22.532  INFO 11896 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-16 21:15:22.554  INFO 11896 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-16 21:15:22.558  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet
+2019-12-16 21:15:22.558  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Servlet will be mapped to URLs [/vaadinServlet/*, /VAADIN/*]
+2019-12-16 21:15:22.560  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Setting servlet init parameters
+2019-12-16 21:15:22.560  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [productionMode] = [false]
+2019-12-16 21:15:22.561  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [resourceCacheTime] = [3600]
+2019-12-16 21:15:22.561  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [heartbeatInterval] = [300]
+2019-12-16 21:15:22.561  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Set servlet init parameter [closeIdleSessions] = [false]
+2019-12-16 21:15:22.700  INFO 11896 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-16 21:15:22.754  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Checking the application context for Vaadin UI mappings
+2019-12-16 21:15:22.757  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Registering Vaadin servlet of type [com.vaadin.spring.server.SpringVaadinServlet]
+2019-12-16 21:15:22.759  INFO 11896 --- [restartedMain] c.v.s.b.i.VaadinServletConfiguration     : Forwarding @SpringUI URLs from {/gobelin=org.springframework.web.servlet.mvc.ServletForwardingController@3a19277a, /gobelin/=org.springframework.web.servlet.mvc.ServletForwardingController@3a19277a}
+2019-12-16 21:15:22.795  INFO 11896 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-12-16 21:15:22.989  INFO 11896 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2019-12-16 21:15:22.990  INFO 11896 --- [restartedMain] h.g.gobelin.GobelinmakerApplication      : Started GobelinmakerApplication in 0.864 seconds (JVM running for 476.977)
+2019-12-16 21:15:22.993  INFO 11896 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-12-16 21:15:23.039  WARN 11896 --- [http-nio-8081-exec-10] c.v.s.DefaultDeploymentConfiguration     : 
+=================================================================
+Vaadin is running in DEBUG MODE.
+Add productionMode=true to web.xml to disable debug features.
+To show debug window, add ?debug to your application URL.
+=================================================================
+2019-12-16 21:15:30.567  INFO 11896 --- [http-nio-8081-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-16 21:15:38.498  INFO 11896 --- [RMI TCP Connection(11)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2019-12-16 21:15:38.500  INFO 11896 --- [RMI TCP Connection(11)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
