@@ -7,16 +7,15 @@
  </head>
  <body>
   <vaadin-vertical-layout style-name="small" size-full>
-   <vaadin-label plain-text>
-     öüóőúéáűíÖÜÓŐÚÉÁŰÍ 
-   </vaadin-label>
-   <vaadin-label plain-text _id="label">
-     Label 
-   </vaadin-label>
-   <vaadin-button plain-text>
-     öüóőúéáűíÖÜÓŐÚÉÁŰÍ 
-   </vaadin-button>
-   <vaadin-text-field></vaadin-text-field>
+   <vaadin-horizontal-layout width-full>
+    <vaadin-form-layout :expand>
+     <vaadin-slider max="90" caption="Rotation" min="-90" width-full _id="rotXSlider"></vaadin-slider>
+    </vaadin-form-layout>
+    <vaadin-label plain-text _id="rotLabel" :middle :right>
+      Label 
+    </vaadin-label>
+   </vaadin-horizontal-layout>
+   <vaadin-vertical-layout size-full _id="oglLayout" :expand></vaadin-vertical-layout>
   </vaadin-vertical-layout>
  </body>
 </html>
