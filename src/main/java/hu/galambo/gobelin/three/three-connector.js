@@ -1,4 +1,4 @@
-window.hu_galambo_gobelin_ThreeComponent = function() {
+window.hu_galambo_gobelin_three_ThreeComponent = function() {
 	
 	var tree = new mytreelibrary.TreeComponent(this.getElement());
 	

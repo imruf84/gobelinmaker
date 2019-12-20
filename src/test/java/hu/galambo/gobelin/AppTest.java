@@ -1,4 +1,4 @@
-package org.gobelinmaker.gobelinmaker;
+package hu.galambo.gobelin;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

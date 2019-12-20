@@ -1,4 +1,4 @@
-package hu.galambo.gobelin;
+package hu.galambo.gobelin.ui;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

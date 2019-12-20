@@ -1,4 +1,4 @@
-package hu.galambo.gobelin;
+package hu.galambo.gobelin.three;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;

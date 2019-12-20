@@ -11,7 +11,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringView;
 
-import hu.galambo.gobelin.ThreeComponent;
+import hu.galambo.gobelin.three.ThreeComponent;
  
 @Push
 @SpringView(name = DefaultView.VIEW_NAME)

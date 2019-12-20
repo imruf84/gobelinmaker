@@ -1,4 +1,4 @@
-package hu.galambo.gobelin;
+package hu.galambo.gobelin.mycomponent;
 
 import com.vaadin.shared.ui.JavaScriptComponentState;
 
