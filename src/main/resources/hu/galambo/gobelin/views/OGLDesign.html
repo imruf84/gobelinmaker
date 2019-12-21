@@ -6,8 +6,16 @@
   <meta name="vaadin-version" content="8.1.5">
  </head>
  <body>
-  <vaadin-vertical-layout style-name="small" spacing="false" size-full margin="false">
-   <vaadin-tab-sheet size-full _id="mainTabSheet" :expand></vaadin-tab-sheet>
+  <vaadin-vertical-layout style-name="small" size-full>
+   <vaadin-horizontal-layout width-full>
+    <vaadin-form-layout :expand>
+     <vaadin-slider max="90" caption="Rotation" min="-90" width-full _id="rotXSlider"></vaadin-slider>
+    </vaadin-form-layout>
+    <vaadin-label plain-text _id="rotLabel" :middle :right>
+      Label 
+    </vaadin-label>
+   </vaadin-horizontal-layout>
+   <vaadin-vertical-layout size-full _id="oglLayout" :expand></vaadin-vertical-layout>
   </vaadin-vertical-layout>
  </body>
 </html>

@@ -72,7 +72,7 @@ public class DeviceManager extends HashMap<String, Device> {
 	}
 
 	@PreDestroy
-	public static void abc() {
+	public static void shutDownAllDevices() {
 
 		LOG.info("Shutting down devices: ");
 
@@ -88,4 +88,12 @@ public class DeviceManager extends HashMap<String, Device> {
 
 	}
 
+	public Device getFirst() {
+        	
+		if (isEmpty()) {
+            return null;
+        }
+        
+        return get(keySet().toArray()[0].toString());
+    }
 }

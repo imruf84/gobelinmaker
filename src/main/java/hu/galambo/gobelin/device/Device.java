@@ -1,5 +1,7 @@
 package hu.galambo.gobelin.device;
 
+import org.gobelinmaker.gobelinmaker.devicemanager.DeviceCommandErrorException;
+import org.gobelinmaker.gobelinmaker.devicemanager.IDevicaCommandCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,6 +9,7 @@ import jssc.SerialPortException;
 
 public class Device {
 
+	@SuppressWarnings("unused")
 	private static final Logger LOG = LoggerFactory.getLogger(Device.class);
 
 	private final String id;
@@ -22,25 +25,40 @@ public class Device {
 		return id;
 	}
 
-	public String sendCommandAndWait(String command) {
-		String s = "ERROR";
+	public String sendCommandSync(String command) throws SerialPortException, InterruptedException, DeviceCommandErrorException {
 
-		try {
-			getArduino().serialWrite(command + "\n");
-		} catch (SerialPortException e) {
-			LOG.error(String.format("Failed to send command:'%s', %s", command, e.getLocalizedMessage()));
-			return s;
-		}
-		try {
-			while ("".equals(s = getArduino().serialRead()))
-				;
-		} catch (InterruptedException e) {
-			LOG.error(String.format("Failed to send command:'%s', %s", command, e.getLocalizedMessage()));
-			Thread.currentThread().interrupt();
-			return s;
-		}
+		getArduino().serialWrite(command + "\n");
+		String response;
+		while ("".equals(response = getArduino().serialRead()));
 
-		return s.trim();
+		response = response.trim();
+		
+		if (response.startsWith("[ERROR]")) {
+			throw new DeviceCommandErrorException(response.substring("[ERROR]".length()));
+		}
+		
+		return response;
+	}
+	
+	public Thread sendCommandAsync(String command, IDevicaCommandCallback callback) {
+		
+		Thread thread = new Thread(() -> {
+			try {
+				String response = sendCommandSync(command);
+				callback.onSuccess(response);
+			} catch (SerialPortException | DeviceCommandErrorException e1) {
+				callback.onError(e1);
+			} catch (InterruptedException e2) {
+				callback.onError(e2);
+				Thread.currentThread().interrupt();
+			}
+			
+			callback.onAlways();
+		});
+		
+		thread.start();
+		
+		return thread;
 	}
 
 	@Override

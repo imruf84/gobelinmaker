@@ -6,8 +6,16 @@
   <meta name="vaadin-version" content="8.1.5">
  </head>
  <body>
-  <vaadin-vertical-layout style-name="small" spacing="false" size-full margin="false">
-   <vaadin-tab-sheet size-full _id="mainTabSheet" :expand></vaadin-tab-sheet>
+  <vaadin-vertical-layout size-full>
+   <vaadin-horizontal-layout width-full>
+    <vaadin-form-layout :expand>
+     <vaadin-text-field caption="Parancs:" width-full _id="commandTextField"></vaadin-text-field>
+    </vaadin-form-layout>
+    <vaadin-button plain-text _id="sendCommandButton" :middle>
+      Küldés 
+    </vaadin-button>
+   </vaadin-horizontal-layout>
+   <vaadin-text-area size-full readonly _id="responseTextArea" :expand></vaadin-text-area>
   </vaadin-vertical-layout>
  </body>
 </html>

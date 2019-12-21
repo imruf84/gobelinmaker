@@ -56,6 +56,7 @@ t_stepper* getStepperByName(String name)
 
 void setup() {
   Serial.begin(9600);
+  while (!Serial) continue;
   inputString.reserve(200);
 
 //  setupSteppers();
@@ -65,23 +66,28 @@ void loop() {
   if (stringComplete) {
 
     String command = "";
+    boolean isValidCommand = false;
 
     command = "getID";
     if (inputString.startsWith(command)) {
+      isValidCommand = true;
       Serial.println("gm");
     }
 
     // General command.
     command = ":";
     if (inputString.startsWith(command)) {
+      isValidCommand = true;
       inputString = inputString.substring(command.length());
       inputString.toUpperCase();
+      delay(1000);
       Serial.println(inputString);
     }
 
     // Motor command: @motor_name steps
     command = "@";
     if (inputString.startsWith(command)) {
+      isValidCommand = true;
       inputString = inputString.substring(command.length());
       String name = getValue(inputString, ' ', 0);
       int steps = getValue(inputString, ' ', 1).toInt();
@@ -108,6 +114,10 @@ void loop() {
         Serial.println(String("[ERROR] There are no stepper motor with name: " + name));
       }*/
       
+    }
+
+    if (!isValidCommand) {
+      Serial.println(String("[ERROR]Invalid command: " + inputString));
     }
     
     inputString = "";
