@@ -1,0 +1,30 @@
+*Pick And Place List
+*Company=
+*Author=
+*eMail=
+*
+*Project=MotorControlPanel3
+*Date=18:50:56
+*CreatedBy=Fritzing 0.9.3b.04.19.5c895d327c44a3114e5fcc9d8260daf0cbb52806
+*
+*
+*Coordinates in mm, always center of component
+*Origin 0/0=Lower left corner of PCB
+*Rotation in degree (0-360, math. pos.)
+*
+*No;Value;Package;X;Y;Rotation;Side;Name
+1;;DIP (Dual Inline) [THT];46.7563;-8.61053;90;Bottom;L9110
+2;;;53.0977;-20.0291;0;Bottom;Hole1
+3;3V;;55.6376;-6.05913;0;Bottom;-+
+4;;;23.8876;-17.4891;0;Bottom;Jumper2
+5;5;THT;25.1576;-2.24913;180;Bottom;R2
+6;;dip;23.8876;-8.59913;-90;Bottom;atmega328
+7;;THT;7.37757;-17.4891;90;Bottom;A+-
+8;1;THT;9.91757;-2.24913;0;Bottom;R1
+9;;THT;2.29757;-11.1391;0;Bottom;TX/RX
+10;;THT;26.4276;-20.0291;-90;Bottom;M1 GND C1 C2 VCC M2
+11;;;53.0977;-2.24912;0;Bottom;Hole3
+12;;;18.8076;-14.9491;0;Bottom;Jumper1
+13;3V;;2.29757;-6.05913;0;Bottom;-+
+14;;;4.83766;-20.0291;0;Bottom;Hole2
+15;;THT;55.6376;-11.1391;180;Bottom;TX/RX

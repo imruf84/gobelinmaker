@@ -1,162 +1,101 @@
-String inputString = "";
-boolean stringComplete = false;
+#define DEVICE_ID "gm"
 
-/*
-#include <AccelStepper.h>
-
-typedef struct s_stepper {
-  String name;
-  AccelStepper stepper;
-  bool running;
-} t_stepper;
-
-t_stepper steppers[] = {
-  {"LiftRight",AccelStepper(AccelStepper::DRIVER,2,3),false},
-  {"ArmRight0",AccelStepper(AccelStepper::DRIVER,4,5),false},
-};
-uint8_t steppersCount = sizeof(steppers)/sizeof(t_stepper);
-
-void setupSteppers() 
+#include "MillisTimer.h"
+int t = 2000;
+MillisTimer timer1 = MillisTimer();
+void myTimerFunction(MillisTimer &mt)
 {
-  for (uint8_t i = 0; i < steppersCount; i++)
-  {
-    steppers[i].stepper.setMaxSpeed(2000);
-    steppers[i].stepper.setAcceleration(2000);
-  }
-}
-*/
-String getValue(String data, char separator, int index)
-{
-    int found = 0;
-    int strIndex[] = { 0, -1 };
-    int maxIndex = data.length() - 1;
+  //Serial.print(Constant("Repeat: "));
+  //Serial.println(mt.getRemainingRepeats());
 
-    for (int i = 0; i <= maxIndex && found <= index; i++) {
-        if (data.charAt(i) == separator || i == maxIndex) {
-            found++;
-            strIndex[0] = strIndex[1] + 1;
-            strIndex[1] = (i == maxIndex) ? i+1 : i;
-        }
-    }
-    return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
+  Serial.println(mt.getRemainingRepeats());
+  t=sqrt(t);
+  mt.setInterval(t);
 }
 
-bool waitingForSteppers = false;
-/*
-t_stepper* getStepperByName(String name)
+#include <SoftwareSerial.h>
+#include <AltSoftSerial.h>
+
+SoftwareSerial node1(10, 11);
+AltSoftSerial node2(8, 9);
+
+String serialString = "";
+String node1String = "";
+String node2String = "";
+
+void setup()  
 {
-  for (uint8_t i = 0; i < steppersCount; i++)
-  {
-    if (steppers[i].name.equals(name)) return &steppers[i];
-  }
-
-  return NULL;
-}
-*/
-
-void setup() {
   Serial.begin(9600);
-  while (!Serial) continue;
-  inputString.reserve(200);
-
-//  setupSteppers();
-}
-
-void loop() {
-  if (stringComplete) {
-
-    String command = "";
-    boolean isValidCommand = false;
-
-    command = "getID";
-    if (inputString.startsWith(command)) {
-      isValidCommand = true;
-      Serial.println("gm");
-    }
-
-    // General command.
-    command = ":";
-    if (inputString.startsWith(command)) {
-      isValidCommand = true;
-      inputString = inputString.substring(command.length());
-      inputString.toUpperCase();
-      delay(1000);
-      Serial.println(inputString);
-    }
-
-    // Motor command: @motor_name steps
-    command = "@";
-    if (inputString.startsWith(command)) {
-      isValidCommand = true;
-      inputString = inputString.substring(command.length());
-      String name = getValue(inputString, ' ', 0);
-      int steps = getValue(inputString, ' ', 1).toInt();
-
-/*
-      t_stepper *stepper = getStepperByName(name);
-      if (NULL != stepper) {
-
-        if (name.equals("m1"))
-        {
-          stepper->stepper.moveTo(steps);
-        }
-        
-        if (name.startsWith("Lift"))
-        {
-          stepper->stepper.move(steps);
-        }
-        
-        stepper->running = true;
-        waitingForSteppers = true;
-      }
-      else
-      {
-        Serial.println(String("[ERROR] There are no stepper motor with name: " + name));
-      }*/
-      
-    }
-
-    if (!isValidCommand) {
-      Serial.println(String("[ERROR]Invalid command: " + inputString));
-    }
-    
-    inputString = "";
-    stringComplete = false;
-  }
-
-
-  // Handle steppers logic.
-  if (waitingForSteppers) {
-    waitingForSteppers = false;
-/*    for (uint8_t i = 0; i < steppersCount; i++)
-    {
-      steppers[i].stepper.run();
-      if (steppers[i].stepper.distanceToGo() == 0) 
-      {
-        steppers[i].running = false;
-      }
-
-      waitingForSteppers = waitingForSteppers || steppers[i].running;
-    }
-*/
-    if (!waitingForSteppers)
-    {
-      Serial.println("[INFO] Steppers finished.");
-    }
-  }
-
+  while(!Serial) continue;
+  Serial.println("Starting...");
   
+  node1.begin(9600);
+  delay(1000);
+  node1.println("Test message");
+  
+  node2.begin(9600);
+  delay(1000);
+  node2.println("Test message");
+  
+  Serial.println("OK");
+
+
+
+
+  timer1.setInterval(t);
+  timer1.expiredHandler(myTimerFunction);
+  timer1.setRepeats(20);
+  timer1.start();
 }
 
-void serialEvent() {
-  while (Serial.available()) {
+void loop() 
+{
+  
+  timer1.run();
+
+  // Előző node üzenetének a feldolgozása.
+  if (node1.available()) 
+  {
+    char inChar = (char)node1.read();
+    if (inChar == '\n') {
+      Serial.print("RECEIVED1: ");
+      Serial.print(node1String);
+      node1String = "";
+    }else{
+      node1String += inChar;
+    }
+  }
+
+  // Következő node üzenetének a feldolgozása.
+  if (node2.available()) 
+  {
+    char inChar = (char)node2.read();
+    if (inChar == '\n') {
+      Serial.print("RECEIVED2: ");
+      Serial.print(node2String);
+      node2String = "";
+    }else{
+      node2String += inChar;
+    }
+  }
+
+  // Soros porton csatlakoztatott node üzenetének a feldolgozása.
+  if (Serial.available()) {
     char inChar = (char)Serial.read();
     if (inChar == '\n') {
-      stringComplete = true;
-    } else {
-      inputString += inChar;
+
+      // Eszközazonosító küldése.
+      if (serialString.startsWith("getID")) {
+        Serial.println(DEVICE_ID);
+      } else {
+        // Komplexebb adatok feldolgozása.
+        Serial.println(serialString);
+      }
+      
+      serialString = "";
+    }else{
+      serialString += inChar;
     }
   }
+  
 }
-
-

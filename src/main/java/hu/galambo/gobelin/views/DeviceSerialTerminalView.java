@@ -9,6 +9,9 @@ import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.navigator.View;
 
+import elemental.json.Json;
+import elemental.json.JsonArray;
+import elemental.json.JsonObject;
 import hu.galambo.gobelin.device.DeviceManager;
 
 @Push
@@ -23,6 +26,18 @@ public class DeviceSerialTerminalView extends DeviceSerialTerminalDesign impleme
 	}
 
 	private void init() {
+		
+		JsonObject json = Json.createObject();
+		
+		JsonArray address = Json.createArray();
+		address.set(address.length(), 2);
+		address.set(address.length(), 4);
+		address.set(address.length(), 6);
+		json.put("a", address);
+		
+		json.put("b", Json.create("e"));
+		
+		getCommandTextField().setValue(json.toJson());
 
 		Runnable run = () -> {
 
